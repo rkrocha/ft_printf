@@ -1,0 +1,5 @@
+#!/bin/sh
+
+make -s -C ./srcs/
+
+gcc -Wall -Werror -Wextra main.c -L./srcs/ -lftprintf -o ft_printf
