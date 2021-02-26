@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2020/12/07 20:05:41 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/02/26 20:37:58 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <unistd.h>
 
 typedef struct	s_params
 {

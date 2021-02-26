@@ -6,9 +6,13 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2020/10/28 10:34:41 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/02/26 20:45:18 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+// int	ft_printf(const char*, ...)
+// {
+
+// }

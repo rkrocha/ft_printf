@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 11:25:29 by rkochhan          #+#    #+#             */
-/*   Updated: 2020/12/07 21:59:09 by rkochhan         ###   ########.fr       */
+/*   Updated: 2020/12/27 10:43:30 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ all flags:	# " " +
 
 int	main(void)
 {
-	printf("%.3f abc\n", 3.14);
+	printf("%8.3f abc\n", 3.14159);
 }
