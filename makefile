@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/10/13 14:09:09 by rkochhan          #+#    #+#              #
-#    Updated: 2020/12/17 22:06:04 by rkochhan         ###   ########.fr        #
+#    Created: 2021/03/04 14:09:09 by rkochhan          #+#    #+#              #
+#    Updated: 2021/03/06 22:06:04 by rkochhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,23 +14,23 @@ NAME	= libftprintf.a
 
 LIBFT	= ./libft
 
-SRC		= ft_printf.c
+SRC		= ft_printf.c ft_printf_utils.c
 
-OBJ		= ./objs/$(SRC:.c=.o)
+OBJ		= $(SRC:.c=.o)
 
 INCLUDE	= -I. -I$(LIBFT)
 
-all: $(NAME)
+.c.o:
+	gcc -Wall -Werror -Wextra $(INCLUDE) -c $< -o $(<:.c=.o)
 
-$(NAME): $(SRC) $(OBJ)							#CHECK RELINKAGE
+$(NAME): $(OBJ)
 	@ make -s -C $(LIBFT)
 	@ cp $(LIBFT)/libft.a $(NAME)
 	@ ar rc $(NAME) $(OBJ)
 	@ ranlib $(NAME)
 	@ echo "Made $(value NAME)"
 
-$(OBJ):
-	@ gcc -Wall -Wextra -Werror $(INCLUDE) -lft -c $(SRC) -o $(OBJ)
+all: $(NAME)
 
 clean:
 	@ make -s clean -C $(LIBFT)
@@ -43,6 +43,6 @@ fclean: clean
 re: fclean all
 
 src:
-	@ ls | grep .c$ | grep -v main.c | xargs | sed 's/ / \\\n\t\t/g'
+	@ ls | grep "\.c"$ | grep -v main.c | xargs | sed 's/ / \\\n\t\t/g'
 
 .PHONY: all clean fclean re src
