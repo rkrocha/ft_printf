@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/07 08:49:21 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:58:05 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,11 @@ all flags:	# " " +
 
 int	main(void)
 {
-	ft_printf("abc %20d abc\n", 3);
+	ft_printf("abc %10d def\n", 3);
+	ft_printf("abc %-20.21d def\n", 3);
+	ft_printf("abc %0-30.31d def\n", 3);
+	ft_printf("abc %-040.41d def\n", 3);
+	ft_printf("abc %-050.*d def\n", 51, 3);
+	ft_printf("abc %-0*.61d def\n", 60, 3);
+	ft_printf("abc %-0*.*d def\n", 70, 71, 3);
 }
