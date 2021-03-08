@@ -6,13 +6,13 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/08 12:04:04 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:46:06 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	branch_by_specifier(t_params *conv, va_list arg, int *nprint)
+static void	print_by_specifier(t_params *conv, va_list arg, int *nprint)
 {
 	// if ((*conv).specifier == 'c' || (*conv).specifier == '%')
 	// 	printf_char(conv, arg, nprint);
@@ -43,7 +43,7 @@ static void	get_conversion(const char *format, va_list arg, int *nprint, int *i)
 		// if (check_common_errors)?
 			// break ;
 		// else
-		branch_by_specifier(&conv, arg, nprint);
+		print_by_specifier(&conv, arg, nprint);
 		return ;
 	}
 	*nprint = -1;
@@ -68,7 +68,7 @@ int			ft_printf(const char *format, ...)
 		}
 		else
 		{
-			ft_putchar(format[i]);
+			ft_putchar(format[i]); // optimize for less syscalls?
 			nprint++;
 			i++;
 		}
