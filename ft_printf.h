@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/06 23:54:45 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:55:44 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # define PRINTF_SPECS "cspdiuxX%"
 # define PRINTF_CONVERSION "-0.*cspdiuxX%123456789"
 
-typedef struct	s_conversion
+typedef struct	s_params
 {
-	char	conversion[24];
+	char	string[24];
 	char	specifier;
 
 	bool	flag_minus;
@@ -35,10 +35,15 @@ typedef struct	s_conversion
 
 	int		width;
 	int		precision;
-}				t_conversion;
+}				t_params;
 
 int				ft_printf(const char *format, ...);
-bool			copy_conv_spec(const char *format, t_conversion *conv, int *i);
-void			get_flags(t_conversion *conv);
+
+/*
+** ft_printf_utils.c:
+*/
+bool			copy_conversion(const char *format, t_params *conv, int *i);
+void			get_flags(t_params *conv);
+void			get_width_precision(t_params *conv, va_list arg);
 
 #endif
