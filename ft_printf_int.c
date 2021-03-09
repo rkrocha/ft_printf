@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 12:50:28 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:51:43 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,48 @@ for s conversions.
 
 error: flag '0' is ignored when flag '-' is present [-Werror,-Wformat]
 error: '0' flag ignored with precision and ‘%d’ gnu_printf format [-Werror=format=]
-
-printf("abc %5d def\n", 3);
-printf("abc %.5d def\n", 3);
-printf("abc %-5d def\n", 3);
-printf("abc %05d def\n\n", 3);
-abc     3 def
-abc 00003 def OK
-abc 3     def
-abc 00003 def
-
-printf("abc %-6.3d def\n", 3);
-printf("abc %06.3d def\n", 3); <- special case, implicitly ignore 0
-printf("abc %-3.6d def\n", 3);
-printf("abc %03.6d def\n\n", 3);
-abc 003    def
-abc    003 def
-abc 000003 def OK
-abc 000003 def OK
-
-printf("abc %3d def\n", 33333); // OK
-printf("abc %.3d def\n", 33333);
-printf("abc %-3d def\n", 33333);
-printf("abc %03d def\n\n", 33333);
-abc 33333 def
-abc 33333 def
-abc 33333 def
-abc 33333 def
 */
+
+	// if ((*conv).precision >= (*conv).width)
+	// {
+	// 	if (num_neg)
+	// 		ft_putchar('-');
+	// 	printf_pad('0', (*conv).precision - num_len);
+	// }
+	// else if ((*conv).width > (*conv).precision)
+	// {
+	// 	if (!(*conv).flag_minus)
+	// 		printf_pad(' ', (*conv).width - (*conv).precision - num_len);
+	// 	else
+	// 	{
+	// 		if (num_neg)
+	// 			ft_putchar('-');
+	// 		printf_pad('0', (*conv).precision - num_len);
+	// 	}
+	// }
+	// ft_putnbr(num);
+	// if ((*conv).width > (*conv).precision && (*conv).flag_minus)
+	// 	printf_pad(' ', (*conv).width - (*conv).precision - num_len);
+
+static void	printf_int_print(t_params *conv, int num, int num_len, int print_len)
+{
+	if ((*conv).width > (*conv).precision && !(*conv).flag_minus
+														&& !(*conv).flag_zero)
+		printf_pad(' ', (*conv).width - (*conv).precision - num_len);
+	if (num < 0)
+	{
+		ft_putchar('-');
+		num *= -1;
+		//num_len--; // DANGER OF DISALIGNMENT
+	}
+	if ((*conv).precision > 0)
+		printf_pad('0', (*conv).precision - num_len);
+	else if ((*conv).flag_zero)
+		printf_pad('0', print_len - num_len);
+	ft_putnbr(num);
+	if ((*conv).flag_minus)
+		printf_pad(' ', print_len - (*conv).precision - num_len);
+}
 
 static int	printf_int_len(t_params *conv, int num_len)
 {
@@ -81,7 +95,7 @@ static bool	printf_int_errors(t_params *conv, int *nprint)
 		*nprint = -1;
 		return (true);
 	}
-	if ((*conv).flag_zero && (*conv).precision)
+	if ((*conv).flag_zero && (*conv).precision > 0)
 		(*conv).flag_zero = false;
 	return (false);
 }
@@ -98,16 +112,8 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 	num_len = ft_lintlen(num);
 	print_len = printf_int_len(conv, num_len);
 	*nprint += print_len;
-	if ((*conv).precision >= (*conv).width)
-		printf_pad('0', (*conv).precision - num_len);
-	else if ((*conv).width > (*conv).precision)
-	{
-		if (!(*conv).flag_minus)
-			printf_pad(' ', (*conv).width - (*conv).precision - num_len);
-		else
-			printf_pad('0', (*conv).precision - num_len);
-	}
-	ft_putnbr(num);
-	if ((*conv).width > (*conv).precision && (*conv).flag_minus)
-		printf_pad(' ', (*conv).width - (*conv).precision - num_len);
+	if (print_len == num_len)
+		ft_putnbr(num);
+	else
+		printf_int_print(conv, num, num_len, print_len);
 }

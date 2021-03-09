@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 12:41:41 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:43:57 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,29 @@ all flags:	# " " +
 
 int	main(void)
 {
+	ft_printf("abc %5d ft\n", -3);
+	printf("abc %5d def\n\n", -3);
+
+	ft_printf("abc %.5d ft\n", -3);
+	printf("abc %.5d def\n\n", -3);
+
+	ft_printf("abc %-5d ft\n", -3);
+	printf("abc %-5d def\n\n", -3);
+
+	ft_printf("abc %05d ft\n", -3);
+	printf("abc %05d def\n\n", -3);
+
+	ft_printf("abc %-6.3d ft\n", -3); /////////////////// zero a menos
+	printf("abc %-6.3d def\n\n", -3);
+
+	ft_printf("abc %-3.6d ft\n", -3);
+	printf("abc %-3.6d def\n\n", -3);
+
+	ft_printf("abc %-3.3d ft\n", -3);
+	printf("abc %-3.3d def\n\n\n\n", -3);
+
+
+
 	ft_printf("abc %5d ft\n", 3);
 	printf("abc %5d def\n\n", 3);
 
@@ -73,7 +96,7 @@ int	main(void)
 	ft_printf("abc %05d ft\n", 3);
 	printf("abc %05d def\n\n", 3);
 
-	ft_printf("abc %-6.3d ft\n", 3);
+	ft_printf("abc %-6.3d ft\n", 3); ////////////////// espaço a menos
 	printf("abc %-6.3d def\n\n", 3);
 
 	ft_printf("abc %-3.6d ft\n", 3);
@@ -81,16 +104,4 @@ int	main(void)
 
 	ft_printf("abc %-3.3d ft\n", 3);
 	printf("abc %-3.3d def\n\n", 3);
-
-	ft_printf("abc %3d ft\n", 33333);
-	printf("abc %3d def\n\n", 33333);
-
-	ft_printf("abc %.3d ft\n", 33333);
-	printf("abc %.3d def\n\n", 33333);
-
-	ft_printf("abc %-3d ft\n", 33333);
-	printf("abc %-3d def\n\n", 33333);
-
-	ft_printf("abc %03d ft\n", 33333);
-	printf("abc %03d def\n\n", 33333);
 }
