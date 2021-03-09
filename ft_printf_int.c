@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 19:43:47 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:55:48 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	printf_int_print(t_params *conv, int num, int num_len, int print_len
 		printf_pad(' ', print_len - (*conv).precision - num_len);
 		// printf_pad(' ', print_len - (*conv).precision - num_len);
 }
+	// lacks spaces after number when wid > prec
 
 static int	printf_int_len(t_params *conv, int num_len)
 {
@@ -119,7 +120,7 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 	num_len = ft_lintlen(num);
 	print_len = printf_int_len(conv, num_len);
 	*nprint += print_len;
-	if (print_len == num_len)
+	if (print_len == num_len && num > 0)
 		ft_putnbr(num);
 	else
 		printf_int_print(conv, num, num_len, print_len);
