@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 15:51:43 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:14:56 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ error: '0' flag ignored with precision and ‘%d’ gnu_printf format [-Werror=f
 
 static void	printf_int_print(t_params *conv, int num, int num_len, int print_len)
 {
+	bool	num_neg;
+
+	num_neg = false;
 	if ((*conv).width > (*conv).precision && !(*conv).flag_minus
 														&& !(*conv).flag_zero)
 		printf_pad(' ', (*conv).width - (*conv).precision - num_len);
@@ -68,15 +71,16 @@ static void	printf_int_print(t_params *conv, int num, int num_len, int print_len
 	{
 		ft_putchar('-');
 		num *= -1;
-		//num_len--; // DANGER OF DISALIGNMENT
+		num_neg = true;
 	}
 	if ((*conv).precision > 0)
-		printf_pad('0', (*conv).precision - num_len);
+		printf_pad('0', (*conv).precision - num_len + num_neg);
 	else if ((*conv).flag_zero)
 		printf_pad('0', print_len - num_len);
 	ft_putnbr(num);
-	if ((*conv).flag_minus)
+	if ((*conv).flag_minus && (*conv).width > num_len)
 		printf_pad(' ', print_len - (*conv).precision - num_len);
+		// printf_pad(' ', print_len - (*conv).precision - num_len);
 }
 
 static int	printf_int_len(t_params *conv, int num_len)
@@ -108,7 +112,10 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 
 	if (printf_int_errors(conv, nprint))
 		return ;
-	num = va_arg(ap, int);
+	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
+		num = va_arg(ap, int);
+	else if ((*conv).specifier == 'u')
+		num = va_arg(ap, unsigned int);
 	num_len = ft_lintlen(num);
 	print_len = printf_int_len(conv, num_len);
 	*nprint += print_len;
