@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 09:01:44 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:11:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 		// get_bonus_flags?
 		get_width_precision(&conv, ap);
 		// get_bonus_length?
-		// if (check_common_errors)?
+		// if (printf_common_errors)?
 			// break ;
 		// else
 		print_by_specifier(&conv, ap, nprint);

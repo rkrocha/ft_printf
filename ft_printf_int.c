@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 09:03:33 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:50:28 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ printf("abc %.5d def\n", 3);
 printf("abc %-5d def\n", 3);
 printf("abc %05d def\n\n", 3);
 abc     3 def
-abc 00003 def
+abc 00003 def OK
 abc 3     def
 abc 00003 def
 
 printf("abc %-6.3d def\n", 3);
-printf("abc %06.3d def\n", 3);
+printf("abc %06.3d def\n", 3); <- special case, implicitly ignore 0
 printf("abc %-3.6d def\n", 3);
 printf("abc %03.6d def\n\n", 3);
 abc 003    def
 abc    003 def
-abc 000003 def
-abc 000003 def
+abc 000003 def OK
+abc 000003 def OK
 
-printf("abc %3d def\n", 33333);
+printf("abc %3d def\n", 33333); // OK
 printf("abc %.3d def\n", 33333);
 printf("abc %-3d def\n", 33333);
 printf("abc %03d def\n\n", 33333);
@@ -65,22 +65,16 @@ abc 33333 def
 abc 33333 def
 */
 
-static void		printf_int_format(t_params *conv, char *arg, char **print)
-
-static size_t	printf_int_alloc(t_params *conv, char *arg, char **print)
+static int	printf_int_len(t_params *conv, int num_len)
 {
-	size_t	len;
-
-	len = ft_strlen(arg);
-	if ((*conv).width > len)
-		len = (*conv).width;
-	else if ((*conv).precision > len)
-		len = (*conv).precision;
-	*print = (char *)malloc((len + 1) * sizeof(char));
-	return (len);
+	if ((*conv).width > num_len)
+		num_len = (*conv).width;
+	if ((*conv).precision > num_len)
+		num_len = (*conv).precision;
+	return (num_len);
 }
 
-static bool		printf_int_errors(t_params *conv, int *nprint)
+static bool	printf_int_errors(t_params *conv, int *nprint)
 {
 	if ((*conv).flag_minus && (*conv).flag_zero)
 	{
@@ -94,22 +88,26 @@ static bool		printf_int_errors(t_params *conv, int *nprint)
 
 void		printf_int(t_params *conv, va_list ap, int *nprint)
 {
-	char	*arg;
-	char	*print;
-	size_t	len;
+	int	num;
+	int	num_len;
+	int	print_len;
 
 	if (printf_int_errors(conv, nprint))
 		return ;
-	arg = ft_itoa(va_arg(ap, int));
-	len = printf_int_alloc(conv, arg, &print);
-	if (!print)
+	num = va_arg(ap, int);
+	num_len = ft_lintlen(num);
+	print_len = printf_int_len(conv, num_len);
+	*nprint += print_len;
+	if ((*conv).precision >= (*conv).width)
+		printf_pad('0', (*conv).precision - num_len);
+	else if ((*conv).width > (*conv).precision)
 	{
-		ft_strdel(&arg);
-		*nprint = -1
-		return ;
+		if (!(*conv).flag_minus)
+			printf_pad(' ', (*conv).width - (*conv).precision - num_len);
+		else
+			printf_pad('0', (*conv).precision - num_len);
 	}
-	*nprint += len;
-	ft_putstr(print);
-	ft_strdel(&print);
-	ft_strdel(&arg);
+	ft_putnbr(num);
+	if ((*conv).width > (*conv).precision && (*conv).flag_minus)
+		printf_pad(' ', (*conv).width - (*conv).precision - num_len);
 }

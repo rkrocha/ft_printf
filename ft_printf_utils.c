@@ -6,11 +6,17 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/08 11:49:41 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:39:25 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	printf_pad(char c, int len)
+{
+	while (len-- > 0)
+		ft_putchar(c);
+}
 
 void	get_width_precision(t_params *conv, va_list arg)
 {
