@@ -14,7 +14,7 @@ NAME	= libftprintf.a
 
 LIBFT	= ./libft
 
-SRC		= ft_printf.c ft_printf_utils.c
+SRC		= ft_printf.c ft_printf_utils.c ft_printf_int.c
 
 OBJ		= $(SRC:.c=.o)
 
