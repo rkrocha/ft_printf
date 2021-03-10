@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 11:00:37 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:07:31 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	put_printf_int(t_params *conv, long num, int num_len, bool num_neg)
 	}
 	if (num_neg)
 		ft_putchar('-');
-	if ((*conv).precision > num_len)
+	if ((*conv).precision >= num_len)
 		printf_pad('0', (*conv).precision - num_len + num_neg);
 	else if ((*conv).flag_zero && (*conv).width > num_len)
 		printf_pad('0', (*conv).width - num_len);
