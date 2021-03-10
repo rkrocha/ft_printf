@@ -6,13 +6,13 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 09:18:01 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:06:55 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	put_printf_int(t_params *conv, int num, int num_len)
+static void	put_printf_int(t_params *conv, long num, int num_len)
 {
 	bool	num_neg;
 
@@ -70,9 +70,9 @@ static bool	printf_int_errors(t_params *conv, int *nprint)
 
 void		printf_int(t_params *conv, va_list ap, int *nprint)
 {
-	int	num;
-	int	num_len;
-	int	print_len;
+	long	num;
+	int		num_len;
+	int		print_len;
 
 	if (printf_int_errors(conv, nprint))
 		return ;
