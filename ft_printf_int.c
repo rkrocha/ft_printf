@@ -6,23 +6,11 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 10:44:22 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:00:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void		ft_putlnbr(long num)
-{
-	if (num < 0)
-	{
-		ft_putchar('-');
-		num *= -1;
-	}
-	if (num >= 10)
-		ft_putlnbr(num / 10);
-	ft_putchar(num % 10 + 48);
-}
 
 static void	put_printf_int(t_params *conv, long num, int num_len, bool num_neg)
 {
@@ -39,9 +27,9 @@ static void	put_printf_int(t_params *conv, long num, int num_len, bool num_neg)
 		printf_pad('0', (*conv).precision - num_len + num_neg);
 	else if ((*conv).flag_zero && (*conv).width > num_len)
 		printf_pad('0', (*conv).width - num_len);
-	if (1)
+	if (num > 0 || (*conv).precision > 0 || (*conv).flag_zero)
 		ft_putlnbr(num);
-	else if (1)
+	else if (num == 0 && (*conv).width > 0)
 		ft_putchar(' ');
 	if ((*conv).flag_minus)
 	{
