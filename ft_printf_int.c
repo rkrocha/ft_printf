@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 08:09:51 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/10 08:20:12 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,26 @@ static void	put_printf_int(t_params *conv, int num, int num_len)
 		num *= -1;
 		num_neg = true;
 	}
-	if (!(*conv).flag_minus)
-	{
-		if ((*conv).precision >= num_len)
-			printf_pad(' ', (*conv).width - (*conv).precision - num_neg);
-		else if (!(*conv).flag_zero)
-			printf_pad(' ', (*conv).width - num_len);
-	}
+	if (!(*conv).flag_minus && (*conv).precision >= num_len)
+		printf_pad(' ', (*conv).width - (*conv).precision - num_neg);
+	else if (!(*conv).flag_minus && !(*conv).flag_zero)
+		printf_pad(' ', (*conv).width - num_len);
 	if (num_neg)
 		ft_putchar('-');
-	if ((*conv).precision > 0)
+
+
+
+
+	if ((*conv).precision > num_len)
 		printf_pad('0', (*conv).precision - num_len + num_neg);
-	else if ((*conv).flag_zero)
-		printf_pad('0', num_len + num_neg);
+	else if ((*conv).flag_zero && (*conv).width > num_len)
+		printf_pad('0', (*conv).width - num_len);
+
+
+
+
+
+
 	ft_putnbr(num);
 	if ((*conv).flag_minus && (*conv).width > num_len)
 		printf_pad(' ', num_len - (*conv).precision);
