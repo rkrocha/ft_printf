@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 09:50:39 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:13:08 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stdlib.h>
-# include "./libft/libft.h"
+# include "libft.h"
 
 # define PRINTF_FLAGS "-0.*"
 # define PRINTF_SPECS "cspdiuxX%"
