@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 02:48:21 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:00:54 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,19 @@ void	get_width_precision(t_params *conv, va_list arg)
 	char	*ptr;
 	int		j;
 
+	if ((*conv).flag_precision && !(*conv).flag_star_preci)
+		if ((ptr = ft_strchr((*conv).string, '.')))
+			(*conv).precision = ft_atoi(ptr + 1);
 	j = 0;
 	while (!(*conv).width && !(*conv).flag_star_width && (*conv).string[j])
 	{
 		if (ft_isdigit((*conv).string[j]) && (*conv).string[j] != '0')
 		{
-			if ((void *)&((*conv).string[j]) == (void *)conv)	// unfuck this
-				(*conv).width = ft_atoi(&(*conv).string[j]);	// fucking mess
-			else if ((void *)&((*conv).string[j]) > (void *)conv &&
-												(*conv).string[j - 1] != '.')
+			if (!ptr || &(*conv).string[j] < ptr)
 				(*conv).width = ft_atoi(&(*conv).string[j]);
 		}
 		j++;
 	}
-	if ((*conv).flag_precision && !(*conv).flag_star_preci)
-		if ((ptr = ft_strchr((*conv).string, '.')))
-			(*conv).precision = ft_atoi(ptr + 1);
 	if ((*conv).flag_star_width)
 		(*conv).width = va_arg(arg, int);
 	if ((*conv).flag_star_preci)
