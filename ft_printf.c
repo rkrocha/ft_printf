@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/09 18:24:56 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 03:39:43 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 {
-	// if ((*conv).specifier == 'c' || (*conv).specifier == '%')
-	// 	printf_char(conv, ap, nprint);
-	// else if ((*conv).specifier == 's')
-	// 	printf_str(conv, ap, nprint);
+	if ((*conv).specifier == 'c' || (*conv).specifier == '%')
+		printf_char(conv, ap, nprint);
+	else if ((*conv).specifier == 's')
+		printf_str(conv, ap, nprint);
 	// else if ((*conv).specifier == 'p')					// join with hex?
 	// 	printf_ptr(conv, ap, nprint);
-	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
+	else if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
 		printf_int(conv, ap, nprint);
 	else if ((*conv).specifier == 'u')
 		printf_int(conv, ap, nprint);
@@ -40,7 +40,7 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 		// get_bonus_flags?
 		get_width_precision(&conv, ap);
 		// get_bonus_length?
-		// if (printf_common_errors)?
+		// if (printf_common_errors)? negative wid and prec, multiple '.' or '*'
 			// break ;
 		// else
 		print_by_specifier(&conv, ap, nprint);

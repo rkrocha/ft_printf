@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 10:13:08 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 03:32:46 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdarg.h>
 # include <stdbool.h>
-# include <stdlib.h>
 # include "libft.h"
 
 # define PRINTF_FLAGS "-0.*"
@@ -54,5 +53,15 @@ void			printf_pad(char c, int len);
 ** ft_printf_int.c:
 */
 void			printf_int(t_params *conv, va_list arg, int *nprint);
+
+/*
+** ft_printf_char.c:
+*/
+void			printf_char(t_params *conv, va_list ap, int *nprint);
+
+/*
+** ft_printf_str.c:
+*/
+void			printf_str(t_params *conv, va_list ap, int *nprint);
 
 #endif

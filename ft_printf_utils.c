@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/10 09:50:41 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 02:48:21 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	printf_pad(char c, int len)
 {
-	while (len-- > 0)
+	while (len > 0)
+	{
 		ft_putchar(c);
+		len--;
+	}
 }
 
 void	get_width_precision(t_params *conv, va_list arg)
@@ -56,7 +59,7 @@ void	get_flags(t_params *conv)
 		(*conv).flag_minus = true;
 	while ((*conv).string[j] && ft_strchr(PRINTF_FLAGS, (*conv).string[j]))
 	{
-		if ((*conv).string[j++] == '0')
+		if ((*conv).string[j++] == '0' && (*conv).string[j])
 			(*conv).flag_zero = true;
 	}
 	if (ft_strchr((*conv).string, '.'))
