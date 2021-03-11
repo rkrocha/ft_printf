@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:21:28 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 12:59:19 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:37:50 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static void	printf_put_str(t_params *conv, char *str, size_t len)
 		else if ((size_t)(*conv).width > len)
 			printf_pad(' ', (*conv).width - len);
 	}
-	if (str)
+	if (str != NULL)
 	{
 		if ((*conv).flag_precision)
 			ft_putnstr(str, (*conv).precision);
 		else
 			ft_putstr(str);
 	}
-	else if (!(*conv).flag_precision || (*conv).precision >= 6)
+	else if (str == NULL && (!(*conv).flag_precision || (*conv).precision >= 6))
 		ft_putstr("(null)");
 	if ((*conv).flag_minus)
 	{
