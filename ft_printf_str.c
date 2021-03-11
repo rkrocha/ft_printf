@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:21:28 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 13:37:50 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:02:09 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void		printf_str(t_params *conv, va_list ap, int *nprint)
 		ft_putstr(str);
 	else
 		printf_put_str(conv, str, len);
+	str = NULL;
 }

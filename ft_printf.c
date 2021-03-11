@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 03:39:43 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:00:35 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 		printf_char(conv, ap, nprint);
 	else if ((*conv).specifier == 's')
 		printf_str(conv, ap, nprint);
-	// else if ((*conv).specifier == 'p')					// join with hex?
+	// else if ((*conv).specifier == 'p')			// join with hex?
 	// 	printf_ptr(conv, ap, nprint);
 	else if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
 		printf_int(conv, ap, nprint);
@@ -53,7 +53,7 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 int			ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	int		nprint;
+	int		nprint; // make it size_t?
 	int		i;
 
 	va_start(ap, format);
@@ -68,7 +68,7 @@ int			ft_printf(const char *format, ...)
 		}
 		else
 		{
-			ft_putchar(format[i]);				// optimize for fewer syscalls?
+			ft_putchar(format[i]);		// optimize for fewer syscalls?
 			nprint++;
 			i++;
 		}

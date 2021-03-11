@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 11:58:39 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:34:19 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,24 @@ all flags:	# " " +
 
 int	main(void)
 {
-	ft_printf("abc %10s ft\n", "hi low");
-	printf("abc %10s def\n\n", "hi low");
+	ft_printf("%.3i\n", 0);
+	printf("%.3i\n\n", 0);
+
+	ft_printf("%.0i\n", 0);
+	printf("%.0i\n\n", 0);
+
+	ft_printf("%.i\n", 0);
+	printf("%.i\n\n", 0);
+
+	ft_printf("%5.0i\n", 0);
+	printf("%5.0i\n\n", 0);
+
+	ft_printf("%5.i\n", 0);
+	printf("%5.i\n\n", 0);
+
+	ft_printf("%-5.0i\n", 0);
+	printf("%-5.0i\n\n", 0);
+
+	ft_printf("%-5.i\n", 0);
+	printf("%-5.i\n\n", 0);
 }

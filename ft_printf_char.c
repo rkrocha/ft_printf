@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 16:58:17 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:05:05 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** '0' flag is ignored when '-' flag is present.
 */
 
+// join with ft_printf_str?
 void		printf_char(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned char	c;
@@ -31,7 +32,7 @@ void		printf_char(t_params *conv, va_list ap, int *nprint)
 	if ((*conv).specifier == 'c')
 	{
 		c = (unsigned char)va_arg(ap, int); // treat as int to suppress error?
-		*nprint += (*conv).width;
+		*nprint += (*conv).width;	// check ft_printf return
 		if (!(*conv).flag_minus && (*conv).width > 1)
 			printf_pad(' ', (*conv).width - 1);
 		ft_putchar(c);
