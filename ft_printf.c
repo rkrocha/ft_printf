@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 17:00:35 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:01:54 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 {
-	if ((*conv).specifier == 'c' || (*conv).specifier == '%')
+	if ((*conv).specifier == 'c')
 		printf_char(conv, ap, nprint);
 	else if ((*conv).specifier == 's')
 		printf_str(conv, ap, nprint);
@@ -26,6 +26,8 @@ static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 		printf_int(conv, ap, nprint);
 	// else if ((*conv).specifier == 'x' || (*conv).specifier == 'X')
 	// 	printf_hex(conv, ap, nprint);
+	else if ((*conv).specifier == '%')
+		printf_percent(conv, nprint);
 	return ;
 }
 

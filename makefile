@@ -17,7 +17,7 @@ LIBFT	= ./libft
 SRC		= ft_printf.c \
 			ft_printf_utils.c \
 			ft_printf_int.c \
-			ft_printf_char.c \
+			ft_printf_char_percent.c \
 			ft_printf_str.c
 
 OBJ		= $(SRC:.c=.o)

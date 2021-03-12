@@ -6,37 +6,51 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 17:05:05 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:09:32 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
+** Always prints a '%', using width but ignoring precision.
+** '-' flag makes function to implicitly ignore '0' flag, but each is valid.
+*/
+void	printf_percent(t_params *conv, int *nprint)
+{
+	// print_percent_errors?
+	if ((*conv).width > 1)
+		*nprint += (*conv).width;	// check ft_printf return
+	else
+		*nprint += 1;
+	if (!(*conv).flag_minus && (*conv).width > 1)
+		printf_pad(' ', (*conv).width - 1);
+	else if ((*conv).flag_zero)
+		printf_pad('0', (*conv).width - 1);
+	ft_putchar('%');
+	if ((*conv).flag_minus && (*conv).width > 1)
+		printf_pad(' ', (*conv).width - 1);
+}
+
+/*
 ** Precision and '0' flags result in undefined behavior with c conversion
 ** '0' flag is ignored when '-' flag is present.
 */
-
-// join with ft_printf_str?
-void		printf_char(t_params *conv, va_list ap, int *nprint)
+void	printf_char(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned char	c;
 
 	// printf_char_errors?
 	if ((*conv).specifier == '%')
-	{
-		c = '\0';
-		*nprint += 1;
-		ft_putchar('%');
-	}
-	if ((*conv).specifier == 'c')
-	{
-		c = (unsigned char)va_arg(ap, int); // treat as int to suppress error?
+		c = '%';
+	c = (unsigned char)va_arg(ap, int); // treat as int to suppress error?
+	if ((*conv).width > 1)
 		*nprint += (*conv).width;	// check ft_printf return
-		if (!(*conv).flag_minus && (*conv).width > 1)
-			printf_pad(' ', (*conv).width - 1);
-		ft_putchar(c);
-		if ((*conv).flag_minus && (*conv).width > 1)
-			printf_pad(' ', (*conv).width - 1);
-	}
+	else
+		*nprint += 1;
+	if (!(*conv).flag_minus && (*conv).width > 1)
+		printf_pad(' ', (*conv).width - 1);
+	ft_putchar(c);
+	if ((*conv).flag_minus && (*conv).width > 1)
+		printf_pad(' ', (*conv).width - 1);
 }

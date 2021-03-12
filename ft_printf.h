@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 03:32:46 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:05:27 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void			printf_pad(char c, int len);
 void			printf_int(t_params *conv, va_list arg, int *nprint);
 
 /*
-** ft_printf_char.c:
+** ft_printf_char_percent.c:
 */
 void			printf_char(t_params *conv, va_list ap, int *nprint);
+void			printf_percent(t_params *conv, int *nprint);
+// 				RENAME? ^
 
 /*
 ** ft_printf_str.c:
