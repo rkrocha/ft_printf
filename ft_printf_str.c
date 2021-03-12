@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:21:28 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 17:56:08 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:39:53 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,10 @@ static void	printf_put_str(t_params *conv, char *str, size_t len)
 		else if ((size_t)(*conv).width > len)
 			printf_pad(' ', (*conv).width - len);
 	}
-	if (str != NULL)
-	{
-		if ((*conv).flag_precision)
-			ft_putnstr(str, (*conv).precision);
-		else
-			ft_putstr(str);
-	}
-	else if (str == NULL && (!(*conv).flag_precision || (*conv).precision >= 6))
-		ft_putstr("(null)");
+	if ((*conv).flag_precision)
+		ft_putnstr(str, (*conv).precision);
+	else
+		ft_putstr(str);
 	if ((*conv).flag_minus)
 	{
 		if ((*conv).flag_precision && (size_t)(*conv).precision < len)
@@ -49,12 +44,10 @@ void		printf_str(t_params *conv, va_list ap, int *nprint)
 	// printf_str_errors?
 	str = va_arg(ap, char *);
 	print_len = 0;
-	if (str != NULL)
-		len = ft_strlen(str);
-	else if (str == NULL && (!(*conv).flag_precision || (*conv).precision >= 6))
+	if (str == NULL)
 		len = ft_strlen("(null)");
 	else
-		len = 0;
+		len = ft_strlen(str);
 	if ((*conv).flag_precision && (size_t)(*conv).precision < len)
 		print_len = (*conv).precision;
 	if ((size_t)(*conv).width > print_len)
