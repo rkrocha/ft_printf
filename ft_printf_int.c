@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 17:27:51 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:12:47 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ static void	printf_put_int(t_params *conv, long num, int num_len, bool num_neg)
 		printf_pad('0', (*conv).precision - num_len + num_neg);
 	else if ((*conv).flag_zero && (*conv).width > num_len)
 		printf_pad('0', (*conv).width - num_len);
-	if (num > 0 || (num == 0 && (*conv).precision > 0) || (*conv).flag_zero)
+	if (num > 0 || (*conv).flag_zero || (num == 0 && (*conv).precision > 0) ||
+					(num == 0 && (*conv).width > 0 && !(*conv).flag_precision))
 		ft_putlnbr(num);
-	else if (num == 0 && (*conv).width > 0)		// < fix ^
+	else if (num == 0 && (*conv).width > 0)// < fix ^
 		ft_putchar(' ');
 	if ((*conv).flag_minus)
 	{
