@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/11 12:00:54 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:25:11 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void	printf_pad(char c, int len)
 
 void	get_width_precision(t_params *conv, va_list arg)
 {
+	int		j; // make size_t?
 	char	*ptr;
-	int		j;
 
+	j = 0;
+	ptr = NULL;
 	if ((*conv).flag_precision && !(*conv).flag_star_preci)
 		if ((ptr = ft_strchr((*conv).string, '.')))
 			(*conv).precision = ft_atoi(ptr + 1);
-	j = 0;
 	while (!(*conv).width && !(*conv).flag_star_width && (*conv).string[j])
 	{
 		if (ft_isdigit((*conv).string[j]) && (*conv).string[j] != '0')
@@ -48,10 +49,11 @@ void	get_width_precision(t_params *conv, va_list arg)
 
 void	get_flags(t_params *conv)
 {
+	int		j; // make size_t?
 	char	*ptr;
-	int		j;
 
 	j = 0;
+	ptr = NULL;
 	if (ft_strchr((*conv).string, '-'))
 		(*conv).flag_minus = true;
 	while ((*conv).string[j] && ft_strchr(PRINTF_FLAGS, (*conv).string[j]))
