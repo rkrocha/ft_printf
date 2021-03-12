@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:21:28 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 08:39:53 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:49:30 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void		printf_str(t_params *conv, va_list ap, int *nprint)
 	str = va_arg(ap, char *);
 	print_len = 0;
 	if (str == NULL)
+	{
+		str = "(null)";
 		len = ft_strlen("(null)");
+	}
 	else
 		len = ft_strlen(str);
 	if ((*conv).flag_precision && (size_t)(*conv).precision < len)
