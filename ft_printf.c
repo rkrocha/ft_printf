@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 15:56:09 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 20:24:34 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 		printf_char(conv, ap, nprint);
 	else if ((*conv).specifier == 's')
 		printf_str(conv, ap, nprint);
-	else if ((*conv).specifier == 'p')			// join with hex?
-		printf_hex(conv, ap, nprint);
+	// else if ((*conv).specifier == 'p')
+	// 	printf_hex(conv, ap, nprint);
 	else if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
 		printf_int(conv, ap, nprint);
 	else if ((*conv).specifier == 'u')

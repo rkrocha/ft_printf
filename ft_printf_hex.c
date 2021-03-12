@@ -6,11 +6,51 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:50:43 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 15:48:56 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 20:48:40 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static void	printf_put_hex(t_params conv, unsigned int num, int num_len, char *base)
+{
+	if (!conv.flag_minus)
+	{
+		if (conv.precision >= num_len)
+			printf_pad(' ', conv.width - conv.precision);
+		else if (!conv.flag_zero)
+			printf_pad(' ', conv.width - num_len);
+	}
+	if (conv.precision >= num_len)
+		printf_pad('0', conv.precision - num_len);
+	else if (conv.flag_zero && conv.width > num_len)
+		printf_pad('0', conv.width - num_len);
+	if (num > 0 || conv.flag_zero || (num == 0 && conv.precision > 0) ||
+					(num == 0 && conv.width > 0 && !conv.flag_precision))
+		ft_putlnbr_base(num, base, ft_strlen(base));
+	else if (num == 0 && conv.width > 0)				// < fix ^
+		ft_putchar(' ');
+	if (conv.flag_minus)
+	{
+		if (conv.width > num_len && conv.precision > num_len)
+			printf_pad(' ', conv.width - conv.precision);
+		else if (conv.width > num_len)
+			printf_pad(' ', conv.width - num_len);
+	}
+}
+
+static int	count_hex_digits(unsigned int num)
+{
+	int	len;
+
+	len = 1;
+	while (num >= 16)
+	{
+		num /= 16;
+		len++;
+	}
+	return (len);
+}
 
 static bool	printf_hex_errors(t_params *conv, int *nprint)
 {
@@ -26,15 +66,26 @@ static bool	printf_hex_errors(t_params *conv, int *nprint)
 
 void		printf_hex(t_params *conv, va_list ap, int *nprint)
 {
-	long	num;
-	// int		num_len;
-	// int		print_len;
+	unsigned int	num;
+	int				num_len;
+	int				print_len;
 
 	if (printf_hex_errors(conv, nprint))
 		return ;
-	if ((*conv).specifier == 'x' || (*conv).specifier == 'X')
-		num = (long)va_arg(ap, unsigned int);
+	num = va_arg(ap, unsigned int);
+	num_len = count_hex_digits(num);
+	print_len = num_len;
+	if ((*conv).width > num_len)
+		print_len = (*conv).width;
+	if ((*conv).precision > num_len)
+		print_len = (*conv).precision;
+	*nprint += print_len;
+	if (print_len == num_len && (*conv).specifier == 'x')
+		ft_putlnbr_base(num, LOW_HEX_BASE, ft_strlen(LOW_HEX_BASE));
+	else if (print_len == num_len && (*conv).specifier == 'X')
+		ft_putlnbr_base(num, UP_HEX_BASE, ft_strlen(UP_HEX_BASE));
+	else if ((*conv).specifier == 'x')
+		printf_put_hex(*conv, num, num_len, LOW_HEX_BASE);
 	else
-		num = va_arg(ap, long);
-	ft_putlnbr_base(num, LOW_HEX_BASE, ft_strlen(LOW_HEX_BASE));
+		printf_put_hex(*conv, num, num_len, UP_HEX_BASE);
 }
