@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 08:29:36 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:33:30 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 void	printf_percent(t_params *conv, int *nprint)
 {
 	// print_percent_errors?
+	if ((*conv).flag_minus && (*conv).flag_zero)
+		(*conv).flag_zero = false;
 	if ((*conv).width > 1)
 		*nprint += (*conv).width;	// check ft_printf return
 	else
