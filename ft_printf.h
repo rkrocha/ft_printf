@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 08:05:27 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:53:00 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ void			printf_int(t_params *conv, va_list arg, int *nprint);
 */
 void			printf_char(t_params *conv, va_list ap, int *nprint);
 void			printf_percent(t_params *conv, int *nprint);
-// 				RENAME? ^
 
 /*
 ** ft_printf_str.c:
 */
 void			printf_str(t_params *conv, va_list ap, int *nprint);
+
+/*
+** ft_printf_hex.c:
+*/
+void			printf_hex(t_params *conv, va_list ap, int *nprint);
 
 #endif

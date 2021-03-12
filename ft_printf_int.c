@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 09:12:47 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 16:16:29 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ static int	printf_int_len(t_params *conv, int len)
 
 static bool	printf_int_errors(t_params *conv, int *nprint)
 {
-	if ((*conv).flag_minus && (*conv).flag_zero)
+	if ((*conv).flag_minus && (*conv).flag_zero) // common errors?
 	{
 		*nprint = -1; // error message? check for %u errors
 		return (true);
 	}
-	if ((*conv).flag_zero && (*conv).precision > 0)
+	if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
 		(*conv).flag_zero = false;
 	return (false);
 }
@@ -103,7 +103,7 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 		num = (long)va_arg(ap, unsigned int);
 	num_len = ft_count_digits(num);
 	print_len = (int)printf_int_len(conv, num_len);	// check ft_printf return
-	*nprint += print_len;
+	*nprint += print_len;	// why cast? ^
 	num_neg = false;
 	if (num < 0)
 	{

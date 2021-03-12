@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 08:28:39 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/12 16:15:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ all flags:	# " " +
 
 int	main(void)
 {
-	ft_printf("%.3i\n", 0);
+	ft_printf("%d\n", -1);
 }
