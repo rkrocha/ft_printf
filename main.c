@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 14:27:57 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 14:54:38 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ all flags:	# " " +
 
 int	main(void)
 {
-	ft_printf("neg1 %*s\n", -9, "coucou");
+	ft_printf("%-.09s\n", "s_hidden");
 }

@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 14:31:36 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 15:02:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ bool	printf_errors(t_params *conv)
 	{
 		(*conv).width *= -1;
 		(*conv).flag_minus = true;
+	}
+	if ((*conv).flag_minus && (*conv).flag_zero) // common errors?
+	{
+		// *nprint = -1; // error message? check for %u errors
+		return (true);
 	}
 	return (false);
 }
@@ -69,8 +74,9 @@ void	get_flags(t_params *conv, char *sub_format)
 		(*conv).flag_minus = true;
 	while (sub_format[j] && ft_strchr(PRINTF_FLAGS, sub_format[j]))
 	{
-		if (sub_format[j++] == '0' && sub_format[j])
+		if (sub_format[j] == '0' && sub_format[j - 1] != '.')
 			(*conv).flag_zero = true;
+		j++;
 	}
 	if (ft_strchr(sub_format, '.'))
 		(*conv).flag_precision = true;
