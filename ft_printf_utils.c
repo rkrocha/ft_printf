@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 09:52:24 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 14:31:36 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ void	printf_pad(char c, int len)
 		len--;
 	}
 }
+
+bool	printf_errors(t_params *conv)
+{
+	if ((*conv).width < 0)
+	{
+		(*conv).width *= -1;
+		(*conv).flag_minus = true;
+	}
+	return (false);
+}
+
 // REMAKE v
 void	get_width_preci(t_params *conv, va_list arg, char *sub_format)
 {

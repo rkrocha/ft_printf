@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 11:30:28 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 14:29:50 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int				ft_printf(const char *format, ...);
 bool			copy_conversion(const char *format, t_params *conv, int *i);
 void			get_flags(t_params *conv, char *sub_format);
 void			get_width_preci(t_params *conv, va_list arg, char *sub_format);
+bool			printf_errors(t_params *conv);
 void			printf_pad(char c, int len);
 
 /*
