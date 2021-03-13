@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 20:33:55 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 07:53:48 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,41 +38,40 @@
 **	This is the logic used in the function prinft_put_int seen below.
 */
 
-static void	printf_put_int(t_params *conv, long num, int num_len, bool num_neg)
+static void	printf_put_int(t_params conv, long num, int num_len, bool num_neg)
 {
-	if (!(*conv).flag_minus)
+	if (!conv.flag_minus)
 	{
-		if ((*conv).precision >= num_len)
-			printf_pad(' ', (*conv).width - (*conv).precision - num_neg);
-		else if (!(*conv).flag_zero)
-			printf_pad(' ', (*conv).width - num_len);
+		if (conv.precision >= num_len)
+			printf_pad(' ', conv.width - conv.precision - num_neg);
+		else if (!conv.flag_zero)
+			printf_pad(' ', conv.width - num_len);
 	}
 	if (num_neg)
 		ft_putchar('-');
-	if ((*conv).precision >= num_len)
-		printf_pad('0', (*conv).precision - num_len + num_neg);
-	else if ((*conv).flag_zero && (*conv).width > num_len)
-		printf_pad('0', (*conv).width - num_len);
-	if (num > 0 || (*conv).flag_zero || (num == 0 && (*conv).precision > 0) ||
-					(num == 0 && (*conv).width > 0 && !(*conv).flag_precision))
-		ft_putlnbr(num);
-	else if (num == 0 && (*conv).width > 0) // < fix ^
+	if (conv.precision >= num_len)
+		printf_pad('0', conv.precision - num_len + num_neg);
+	else if (conv.flag_zero && conv.width > num_len)
+		printf_pad('0', conv.width - num_len);
+	if (num == 0 && conv.flag_precision && conv.precision == 0)
 		ft_putchar(' ');
-	if ((*conv).flag_minus)
+	else if (1)
+		ft_putlnbr(num);
+	if (conv.flag_minus)
 	{
-		if ((*conv).width > num_len && (*conv).precision > num_len)
-			printf_pad(' ', (*conv).width - (*conv).precision - num_neg);
-		else if ((*conv).width > num_len)
-			printf_pad(' ', (*conv).width - num_len);
+		if (conv.width > num_len && conv.precision > num_len)
+			printf_pad(' ', conv.width - conv.precision - num_neg);
+		else if (conv.width > num_len)
+			printf_pad(' ', conv.width - num_len);
 	}
 }
 
-static int	printf_int_len(t_params *conv, int len)
+static int	printf_int_len(t_params conv, int len)
 {
-	if ((*conv).width > len)
-		len = (*conv).width;
-	if ((*conv).precision > len)
-		len = (*conv).precision;
+	if (conv.width > len)
+		len = conv.width;
+	if (conv.precision > len)
+		len = conv.precision;
 	return (len);
 }
 
@@ -102,7 +101,7 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 	else
 		num = (long)va_arg(ap, unsigned int);
 	num_len = ft_count_digits(num);
-	print_len = printf_int_len(conv, num_len);	// check ft_printf return
+	print_len = printf_int_len(*conv, num_len);	// check ft_printf return
 	*nprint += print_len;
 	num_neg = false;
 	if (num < 0)
@@ -113,5 +112,5 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 	if (print_len == num_len && !num_neg)
 		ft_putlnbr(num);
 	else
-		printf_put_int(conv, num, num_len, num_neg);
+		printf_put_int(*conv, num, num_len, num_neg);
 }
