@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:50:43 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 08:20:21 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:25:25 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		printf_hex(t_params *conv, va_list ap, int *nprint)
 		print_len = (*conv).precision;
 	*nprint += print_len;
 	if ((*conv).specifier == 'x')
-		printf_put_hex(*conv, num, num_len, LOW_HEX_BASE);
+		printf_put_hex(*conv, num, num_len, LOWER_HEX_BASE);
 	else
-		printf_put_hex(*conv, num, num_len, UP_HEX_BASE);
+		printf_put_hex(*conv, num, num_len, UPPER_HEX_BASE);
 }

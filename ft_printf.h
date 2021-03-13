@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 09:20:36 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:30:28 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct	s_params
 
 	int		width;
 	int		precision;
+
+	char	*string;
 }				t_params;
 
 /*
@@ -69,5 +71,10 @@ void			printf_str(t_params *conv, va_list ap, int *nprint);
 ** ft_printf_hex.c:
 */
 void			printf_hex(t_params *conv, va_list ap, int *nprint);
+
+/*
+** ft_printf_ptr.c:
+*/
+void			printf_ptr(t_params *conv, va_list ap, int *nprint);
 
 #endif
