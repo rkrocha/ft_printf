@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 08:25:11 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 09:21:05 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ void	printf_pad(char c, int len)
 		len--;
 	}
 }
-
-void	get_width_precision(t_params *conv, va_list arg)
+// REMAKE v
+void	get_width_preci(t_params *conv, va_list arg, char *sub_format)
 {
-	int		j; // make size_t?
+	int		j;
 	char	*ptr;
 
 	j = 0;
 	ptr = NULL;
 	if ((*conv).flag_precision && !(*conv).flag_star_preci)
-		if ((ptr = ft_strchr((*conv).string, '.')))
+		if ((ptr = ft_strchr(sub_format, '.')))
 			(*conv).precision = ft_atoi(ptr + 1);
-	while (!(*conv).width && !(*conv).flag_star_width && (*conv).string[j])
+	while (!(*conv).width && !(*conv).flag_star_width && sub_format[j])
 	{
-		if (ft_isdigit((*conv).string[j]) && (*conv).string[j] != '0')
+		if (ft_isdigit(sub_format[j]) && sub_format[j] != '0')
 		{
-			if (!ptr || &(*conv).string[j] < ptr)
-				(*conv).width = ft_atoi(&(*conv).string[j]);
+			if (!ptr || &sub_format[j] < ptr)
+				(*conv).width = ft_atoi(&sub_format[j]);
 		}
 		j++;
 	}
@@ -46,35 +46,35 @@ void	get_width_precision(t_params *conv, va_list arg)
 		(*conv).precision = va_arg(arg, int);
 	ptr = NULL;
 }
-
-void	get_flags(t_params *conv)
+// REMAKE v
+void	get_flags(t_params *conv, char *sub_format)
 {
-	int		j; // make size_t?
+	int		j;
 	char	*ptr;
 
 	j = 0;
 	ptr = NULL;
-	if (ft_strchr((*conv).string, '-'))
+	if (ft_strchr(sub_format, '-'))
 		(*conv).flag_minus = true;
-	while ((*conv).string[j] && ft_strchr(PRINTF_FLAGS, (*conv).string[j]))
+	while (sub_format[j] && ft_strchr(PRINTF_FLAGS, sub_format[j]))
 	{
-		if ((*conv).string[j++] == '0' && (*conv).string[j])
+		if (sub_format[j++] == '0' && sub_format[j])
 			(*conv).flag_zero = true;
 	}
-	if (ft_strchr((*conv).string, '.'))
+	if (ft_strchr(sub_format, '.'))
 		(*conv).flag_precision = true;
-	if ((ptr = (ft_strrchr((*conv).string, '*'))))
+	if ((ptr = (ft_strrchr(sub_format, '*'))))
 	{
-		if ((void *)ptr > (void *)conv && *(ptr - 1) == '.')
+		if (ptr > &sub_format[0] && *(ptr - 1) == '.')
 			(*conv).flag_star_preci = true;
 		else
 			(*conv).flag_star_width = true;
 	}
-	if ((ptr != (ft_strchr((*conv).string, '*'))))
+	if ((ptr != (ft_strchr(sub_format, '*'))))
 		(*conv).flag_star_width = true;
 	ptr = NULL;
 }
-
+// REMAKE v
 bool	copy_conversion(const char *format, t_params *conv, int *i)
 {
 	int	j;
@@ -82,12 +82,12 @@ bool	copy_conversion(const char *format, t_params *conv, int *i)
 	j = 0;
 	while (j < 23 && format[*i] && ft_strchr(PRINTF_CONVERSION, format[*i]))
 	{
-		(*conv).string[j] = format[*i];
+		(*conv).sub_format[j] = format[*i];
 		(*i)++;
 		j++;
-		if (ft_strchr(PRINTF_SPECS, (*conv).string[j - 1]))
+		if (ft_strchr(PRINTF_SPECS, (*conv).sub_format[j - 1]))
 		{
-			(*conv).specifier = (*conv).string[j - 1];
+			(*conv).specifier = (*conv).sub_format[j - 1];
 			return (true);
 		}
 	}

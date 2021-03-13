@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 20:24:34 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 09:20:35 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 		printf_char(conv, ap, nprint);
 	else if ((*conv).specifier == 's')
 		printf_str(conv, ap, nprint);
-	// else if ((*conv).specifier == 'p')
-	// 	printf_hex(conv, ap, nprint);
+	else if ((*conv).specifier == 'p')
+		printf_hex(conv, ap, nprint);
 	else if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
 		printf_int(conv, ap, nprint);
 	else if ((*conv).specifier == 'u')
@@ -38,9 +38,9 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 	ft_bzero(&conv, sizeof(conv));
 	if (copy_conversion(format, &conv, i))
 	{
-		get_flags(&conv);
+		get_flags(&conv, conv.sub_format);
 		// get_bonus_flags?
-		get_width_precision(&conv, ap);
+		get_width_preci(&conv, ap, conv.sub_format);
 		// get_bonus_length?
 		// if (printf_common_errors)? negative wid and prec, multiple '.' or '*'
 			// break ;
@@ -55,7 +55,7 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 int			ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	int		nprint; // make it size_t?
+	int		nprint;
 	int		i;
 
 	va_start(ap, format);
@@ -76,5 +76,5 @@ int			ft_printf(const char *format, ...)
 		}
 	}
 	va_end(ap);
-	return (nprint);
+	return (nprint); // TEST RETURNS
 }

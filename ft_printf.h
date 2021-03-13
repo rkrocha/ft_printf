@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 10:53:00 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 09:20:36 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct	s_params
 {
-	char	string[24];
+	char	sub_format[24];
 	char	specifier;
 
 	bool	flag_minus;
@@ -45,8 +45,8 @@ int				ft_printf(const char *format, ...);
 ** ft_printf_utils.c:
 */
 bool			copy_conversion(const char *format, t_params *conv, int *i);
-void			get_flags(t_params *conv);
-void			get_width_precision(t_params *conv, va_list arg);
+void			get_flags(t_params *conv, char *sub_format);
+void			get_width_preci(t_params *conv, va_list arg, char *sub_format);
 void			printf_pad(char c, int len);
 
 /*
