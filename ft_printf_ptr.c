@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 09:48:09 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 11:47:57 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 12:08:42 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 
 	num = va_arg(ap, unsigned long);
 	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
-		(*conv).string = "0x";
+		(*conv).string = ft_strdup("0x");
 	else
 	{
 		aux = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
@@ -59,4 +59,5 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 		ft_strdel(&aux);
 	}
 	printf_put_ptr(*conv, ft_strlen((*conv).string), false, false);
+	ft_strdel(&(*conv).string);
 }
