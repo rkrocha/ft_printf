@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:50:43 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/12 20:48:40 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 08:20:21 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ static void	printf_put_hex(t_params conv, unsigned int num, int num_len, char *b
 		printf_pad('0', conv.precision - num_len);
 	else if (conv.flag_zero && conv.width > num_len)
 		printf_pad('0', conv.width - num_len);
-	if (num > 0 || conv.flag_zero || (num == 0 && conv.precision > 0) ||
-					(num == 0 && conv.width > 0 && !conv.flag_precision))
+	if (!(num == 0 && conv.flag_precision && conv.precision == 0))
 		ft_putlnbr_base(num, base, ft_strlen(base));
-	else if (num == 0 && conv.width > 0)				// < fix ^
+	else if (num == 0 && conv.width > 0)
 		ft_putchar(' ');
 	if (conv.flag_minus)
 	{
@@ -80,11 +79,7 @@ void		printf_hex(t_params *conv, va_list ap, int *nprint)
 	if ((*conv).precision > num_len)
 		print_len = (*conv).precision;
 	*nprint += print_len;
-	if (print_len == num_len && (*conv).specifier == 'x')
-		ft_putlnbr_base(num, LOW_HEX_BASE, ft_strlen(LOW_HEX_BASE));
-	else if (print_len == num_len && (*conv).specifier == 'X')
-		ft_putlnbr_base(num, UP_HEX_BASE, ft_strlen(UP_HEX_BASE));
-	else if ((*conv).specifier == 'x')
+	if ((*conv).specifier == 'x')
 		printf_put_hex(*conv, num, num_len, LOW_HEX_BASE);
 	else
 		printf_put_hex(*conv, num, num_len, UP_HEX_BASE);
