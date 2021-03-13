@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 09:48:09 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 11:39:50 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/13 11:47:57 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 		(*conv).flag_zero = false;
 
 	num = va_arg(ap, unsigned long);
-	if (num == 0)
-		(*conv).string = "(nil)";
+	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
+		(*conv).string = "0x";
 	else
 	{
 		aux = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
