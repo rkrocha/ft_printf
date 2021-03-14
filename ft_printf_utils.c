@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 15:41:08 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 16:24:34 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,36 @@ void	printf_pad(char c, int len)
 		len--;
 	}
 }
+
+/*
+**		From what I could gather, the most reasonable way to print all
+**		conversions was to do so in the following order:
+**
+**	1. If there's no '-' flag, then pad with spaces according to given
+**		precision or width. A sign (such as a negative sign) counts as
+**		width but not as precision.
+**
+**	2. If the number to be printed is negative (or has any sign, or
+**		space padding in case of ' ' flag), then print the sign.
+**
+**	3. If the specified precision value is larger or equal to the amount
+**		of characters to print, or if the '0' flag is in play and width
+**		is larger or equal to the amount of int digits to print, then
+**		pad with zeroes.
+**
+**	4. If a number to be printed is zero, and there is a precision flag
+**		and precision value is zero, then don't print anything. If number
+**		is zero and width is also zero, then print a space. For all other
+**		cases, print what there is to print.
+**
+**	5. If the conversion printed so far was left-justified ('-' flag),
+**		then there may be space padding to print depending on width,
+**		precision, and the amount of digits to print.
+**
+**		This is the logic used in the function prinft_print seen below.
+**		All additional adjustments depend on the type of conversion, and
+**		can be prepared before being sent to this function.
+*/
 
 void	printf_print(t_params conv, size_t len, bool is_zero, bool sign)
 {

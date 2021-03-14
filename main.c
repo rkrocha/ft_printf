@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 09:12:40 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 16:35:17 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ some flags:	l ll h hh
 all flags:	# " " +
 */
 
-// 973 is the magic number
+// 973 IS THE MAGIC NUMBER!
 
 #include <stdio.h>
 #include "ft_printf.h"
