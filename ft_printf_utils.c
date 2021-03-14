@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 08:55:14 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:55:07 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,38 +30,31 @@ bool	printf_errors(t_params *conv)
 	}
 	if ((*conv).flag_minus && (*conv).flag_zero && (*conv).specifier != '%')
 	{
-		return (true);
+		return (true); // IS THIS SUPPOSED TO HAPPEN?
 	}
 	return (false);
 }
 
-// REMAKE v
 void	get_width_preci(t_params *conv, va_list arg, char *sub_format)
 {
-	int		j;
-	char	*ptr;
+	char	*width_ptr;
+	char	*preci_ptr;
 
-	j = 0;
-	ptr = NULL;
-	if ((*conv).flag_precision && !(*conv).flag_star_preci)
-		if ((ptr = ft_strchr(sub_format, '.')))
-			(*conv).precision = ft_atoi(ptr + 1);
-	while (!(*conv).width && !(*conv).flag_star_width && sub_format[j])
-	{
-		if (ft_isdigit(sub_format[j]) && sub_format[j] != '0')
-		{
-			if (!ptr || &sub_format[j] < ptr)
-				(*conv).width = ft_atoi(&sub_format[j]);
-		}
-		j++;
-	}
+	preci_ptr = ft_strchr(sub_format, '.');
 	if ((*conv).flag_star_width)
 		(*conv).width = va_arg(arg, int);
+	else
+	{
+		width_ptr = ft_strsearch(sub_format, "123456789");
+		if (width_ptr && (!preci_ptr || width_ptr < preci_ptr))
+			(*conv).width = ft_atoi(width_ptr);
+	}
 	if ((*conv).flag_star_preci)
 		(*conv).precision = va_arg(arg, int);
-	ptr = NULL;
+	else if ((*conv).flag_precision)
+		(*conv).precision = ft_atoi(preci_ptr + 1);
 }
-// REMAKE v
+
 void	get_flags(t_params *conv, char *sub_format)
 {
 	char	*ptr;
@@ -78,7 +71,7 @@ void	get_flags(t_params *conv, char *sub_format)
 			else if ((ptr > &sub_format[0] && !ft_isdigit(*(ptr - 1))))
 				(*conv).flag_zero = true;
 		}
-		if (*ptr == '.')
+		if (!(*conv).flag_precision && *ptr == '.')
 			(*conv).flag_precision = true;
 		if (*ptr == '*')
 		{
