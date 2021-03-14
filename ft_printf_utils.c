@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 07:39:10 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 08:50:07 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,31 @@ void	get_width_preci(t_params *conv, va_list arg, char *sub_format)
 // REMAKE v
 void	get_flags(t_params *conv, char *sub_format)
 {
-	int		j;
 	char	*ptr;
 
-	j = 0;
-	ptr = NULL;
-	if (ft_strchr(sub_format, '-'))
-		(*conv).flag_minus = true;
-	if ((ptr = ft_strchr(sub_format, '.')))
-		(*conv).flag_precision = true;
-	while (sub_format[j] && ft_strchr(PRINTF_FLAGS, sub_format[j]))
+	ptr = sub_format;
+	while ((ptr = ft_strsearch(ptr, PRINTF_FLAGS)))
 	{
-		if (sub_format[j] == '0' && sub_format[j])
-			(*conv).flag_zero = true;
-		j++;
+		if (!(*conv).flag_precision && *ptr == '-')
+			(*conv).flag_minus = true;
+		if (!(*conv).flag_precision && *ptr == '0')
+		{
+			if (ptr == &sub_format[0])
+				(*conv).flag_zero = true;
+			else if ((ptr > &sub_format[0] && !ft_isdigit(*(ptr - 1))))
+				(*conv).flag_zero = true;
+		}
+		if (*ptr == '.')
+			(*conv).flag_precision = true;
+		if (*ptr == '*')
+		{
+			if (ptr > &sub_format[0] && *(ptr - 1) == '.')
+				(*conv).flag_star_preci = true;
+			else
+				(*conv).flag_star_width = true;
+		}
+		ptr += 1;
 	}
-	if ((ptr = (ft_strrchr(sub_format, '*'))))
-	{
-		if (ptr > &sub_format[0] && *(ptr - 1) == '.')
-			(*conv).flag_star_preci = true;
-		else
-			(*conv).flag_star_width = true;
-	}
-	if ((ptr != (ft_strchr(sub_format, '*'))))
-		(*conv).flag_star_width = true;
-	ptr = NULL;
 }
 // REMAKE v
 bool	copy_conversion(const char *format, t_params *conv, int *i)
