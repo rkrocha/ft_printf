@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 16:35:37 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 16:37:21 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 		num *= -1;
 		sign = true;
 	}
+	is_zero = false;
 	if (num == 0)
 		is_zero = true;
 	(*conv).string = ft_ullitoa_base(num, DECIMAL_BASE, false);
