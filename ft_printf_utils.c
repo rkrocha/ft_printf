@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 14:00:50 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:03:07 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool	copy_conversion(const char *format, t_params *conv, int *i)
 	start = &format[*i];
 	if ((end = ft_strsearch(start, PRINTF_SPECS)))
 	{
-		if ((end == ft_strignore(start, PRINTF_VALID)))
+		if (end == ft_strignore(start, PRINTF_VALID))
 		{
 			(*conv).sub_format = ft_substr(start, 0, end - start + 1);
 			(*conv).specifier = *end;
