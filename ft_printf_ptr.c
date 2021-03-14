@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 09:48:09 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 12:08:42 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:59:07 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	printf_put_ptr(t_params conv, size_t len, bool is_zero, bool sign)
 void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned long	num;
-	char			*aux;
+	char			*temp;
 
 	(void)nprint;
 	if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
@@ -54,9 +54,9 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 		(*conv).string = ft_strdup("0x");
 	else
 	{
-		aux = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
-		(*conv).string = ft_strjoin("0x", aux);
-		ft_strdel(&aux);
+		temp = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
+		(*conv).string = ft_strjoin("0x", temp);
+		ft_strdel(&temp);
 	}
 	printf_put_ptr(*conv, ft_strlen((*conv).string), false, false);
 	ft_strdel(&(*conv).string);
