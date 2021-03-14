@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 15:02:37 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 07:32:05 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ void	get_flags(t_params *conv, char *sub_format)
 	ptr = NULL;
 	if (ft_strchr(sub_format, '-'))
 		(*conv).flag_minus = true;
-	while (sub_format[j] && ft_strchr(PRINTF_FLAGS, sub_format[j]))
-	{
-		if (sub_format[j] == '0' && sub_format[j - 1] != '.')
-			(*conv).flag_zero = true;
-		j++;
-	}
-	if (ft_strchr(sub_format, '.'))
+	if ((ptr = ft_strchr(sub_format, '.')))
 		(*conv).flag_precision = true;
+	while (sub_format[j] && (ptr < ft_strchr(PRINTF_FLAGS, sub_format[j])))
+	{
+		if (sub_format[j++] == '0' && sub_format[j])
+			(*conv).flag_zero = true;
+	}
 	if ((ptr = (ft_strrchr(sub_format, '*'))))
 	{
 		if (ptr > &sub_format[0] && *(ptr - 1) == '.')
