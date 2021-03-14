@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:50:43 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 15:31:19 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 15:37:34 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ static bool	printf_hex_errors(t_params *conv, int *nprint)
 	}
 	if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
 		(*conv).flag_zero = false;
+	if ((*conv).precision < 0)
+	{
+		(*conv).flag_precision = false; // printf errors?
+		(*conv).precision = 0;
+	}
 	return (false);
 }
 
