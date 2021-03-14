@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 09:48:09 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 14:26:59 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 15:30:56 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 	unsigned long	num;
 	char			*temp;
 
-	(void)nprint;
 	if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
 		(*conv).flag_zero = false;
 
@@ -32,4 +31,5 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 	}
 	printf_print(*conv, ft_strlen((*conv).string), false, false);
 	ft_strdel(&(*conv).string);
+	*nprint += 1; // FIX
 }
