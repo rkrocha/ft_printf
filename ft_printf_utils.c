@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 10:22:52 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:57:47 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,22 @@ void	get_width_preci(t_params *conv, va_list arg, char *sub_format)
 		(*conv).precision = va_arg(arg, int);
 	else if ((*conv).flag_precision)
 		(*conv).precision = ft_atoi(preci_ptr + 1);
-}
+} 				// use atoll? ^
 
 void	get_flags(t_params *conv, char *sub_format)
 {
+	char	*digit_ptr;
 	char	*preci_ptr;
 	char	*ptr;
 
+	digit_ptr = ft_strsearch(sub_format, "123456789");
 	if ((preci_ptr = ft_strchr(sub_format, '.')))
 		(*conv).flag_precision = true;
 	if ((ptr = ft_strchr(sub_format, '-')) && (!preci_ptr || ptr < preci_ptr))
-		(*conv).flag_minus = true;
+		if (!digit_ptr || ptr < digit_ptr)
+			(*conv).flag_minus = true;
 	if ((ptr = ft_strchr(sub_format, '0')) && (!preci_ptr || ptr < preci_ptr))
-		if (ptr < ft_strsearch(sub_format, "123456789"))
+		if (!digit_ptr || ptr < digit_ptr)
 			(*conv).flag_zero = true;
 	if ((ptr = ft_strchr(sub_format, '*')) && (!preci_ptr || ptr < preci_ptr))
 		(*conv).flag_star_width = true;
