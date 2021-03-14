@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 08:55:20 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:45:10 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 		if (!printf_errors(&conv))//? negative wid and prec, multiple '.' or '*'
 		{
 			print_by_specifier(&conv, ap, nprint);
+			ft_strdel(&(conv.sub_format));
 			return ;
 		}
 	}
+	ft_strdel(&(conv.sub_format));
 	*nprint = -1;
 	return ;
 }

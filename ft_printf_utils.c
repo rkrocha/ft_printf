@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 10:57:47 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:00:50 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,19 @@ void	get_flags(t_params *conv, char *sub_format)
 		(*conv).flag_star_preci = true;
 }
 
-// REMAKE v
 bool	copy_conversion(const char *format, t_params *conv, int *i)
 {
-	int	j;
+	const char	*start;
+	const char	*end;
 
-	j = 0;
-	while (j < 23 && format[*i] && ft_strchr(PRINTF_CONVERSION, format[*i]))
+	start = &format[*i];
+	if ((end = ft_strsearch(start, PRINTF_SPECS)))
 	{
-		(*conv).sub_format[j] = format[*i];
-		(*i)++;
-		j++;
-		if (ft_strchr(PRINTF_SPECS, (*conv).sub_format[j - 1]))
+		if ((end == ft_strignore(start, PRINTF_VALID)))
 		{
-			(*conv).specifier = (*conv).sub_format[j - 1];
+			(*conv).sub_format = ft_substr(start, 0, end - start + 1);
+			(*conv).specifier = *end;
+			*i += end - start + 1;
 			return (true);
 		}
 	}

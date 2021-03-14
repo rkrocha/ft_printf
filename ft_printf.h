@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/13 14:29:50 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:52:07 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include <stdbool.h>
 # include "libft.h"
 
-# define PRINTF_FLAGS "-0.*"
 # define PRINTF_SPECS "cspdiuxX%"
-# define PRINTF_CONVERSION "-0.*cspdiuxX%123456789"
+# define PRINTF_VALID "-0.*123456789"
+# define PRINTF_FLAGS "-0.*"
 
 typedef struct	s_params
 {
-	char	sub_format[24];
+	char	*sub_format;
 	char	specifier;
 
 	bool	flag_minus;
