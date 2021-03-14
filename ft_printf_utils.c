@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 08:50:07 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 08:55:14 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ bool	printf_errors(t_params *conv)
 		(*conv).width *= -1;
 		(*conv).flag_minus = true;
 	}
-	if ((*conv).flag_minus && (*conv).flag_zero) // common errors?
+	if ((*conv).flag_minus && (*conv).flag_zero && (*conv).specifier != '%')
 	{
-		// *nprint = -1; // error message? check for %u errors
 		return (true);
 	}
 	return (false);
