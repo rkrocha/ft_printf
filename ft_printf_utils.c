@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 09:55:07 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:22:52 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,32 +57,22 @@ void	get_width_preci(t_params *conv, va_list arg, char *sub_format)
 
 void	get_flags(t_params *conv, char *sub_format)
 {
+	char	*preci_ptr;
 	char	*ptr;
 
-	ptr = sub_format;
-	while ((ptr = ft_strsearch(ptr, PRINTF_FLAGS)))
-	{
-		if (!(*conv).flag_precision && *ptr == '-')
-			(*conv).flag_minus = true;
-		if (!(*conv).flag_precision && *ptr == '0')
-		{
-			if (ptr == &sub_format[0])
-				(*conv).flag_zero = true;
-			else if ((ptr > &sub_format[0] && !ft_isdigit(*(ptr - 1))))
-				(*conv).flag_zero = true;
-		}
-		if (!(*conv).flag_precision && *ptr == '.')
-			(*conv).flag_precision = true;
-		if (*ptr == '*')
-		{
-			if (ptr > &sub_format[0] && *(ptr - 1) == '.')
-				(*conv).flag_star_preci = true;
-			else
-				(*conv).flag_star_width = true;
-		}
-		ptr += 1;
-	}
+	if ((preci_ptr = ft_strchr(sub_format, '.')))
+		(*conv).flag_precision = true;
+	if ((ptr = ft_strchr(sub_format, '-')) && (!preci_ptr || ptr < preci_ptr))
+		(*conv).flag_minus = true;
+	if ((ptr = ft_strchr(sub_format, '0')) && (!preci_ptr || ptr < preci_ptr))
+		if (ptr < ft_strsearch(sub_format, "123456789"))
+			(*conv).flag_zero = true;
+	if ((ptr = ft_strchr(sub_format, '*')) && (!preci_ptr || ptr < preci_ptr))
+		(*conv).flag_star_width = true;
+	if (preci_ptr && (ptr = ft_strrchr(sub_format, '*')) && ptr > preci_ptr)
+		(*conv).flag_star_preci = true;
 }
+
 // REMAKE v
 bool	copy_conversion(const char *format, t_params *conv, int *i)
 {
