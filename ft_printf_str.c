@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:21:28 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 14:50:16 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:57:09 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void		printf_str(t_params *conv, va_list ap, int *nprint)
 
 	// printf_str_errors?
 	temp = va_arg(ap, char *);
+	if ((*conv).precision < 0)
+		(*conv).precision *= -1;
 	if (temp == NULL)
 	{
 		if ((*conv).flag_precision)
