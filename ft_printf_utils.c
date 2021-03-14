@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 14:03:07 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:26:56 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,34 @@ void	printf_pad(char c, int len)
 	{
 		ft_putchar(c);
 		len--;
+	}
+}
+
+void	printf_print(t_params conv, size_t len, bool is_zero, bool sign)
+{
+	if (!conv.flag_minus)
+	{
+		if ((size_t)conv.precision >= len)
+			printf_pad(' ', conv.width - conv.precision - sign);
+		else if (!conv.flag_zero)
+			printf_pad(' ', conv.width - len);
+	}
+	if (sign)
+		ft_putchar('-');
+	if ((size_t)conv.precision >= len)
+		printf_pad('0', conv.precision - len + sign);
+	else if (conv.flag_zero && (size_t)conv.width > len)
+		printf_pad('0', conv.width - len);
+	if (!(is_zero && conv.flag_precision && conv.precision == 0))
+		ft_putnstr(conv.string, len);
+	else if (is_zero && conv.width > 0)
+		ft_putchar(' ');
+	if (conv.flag_minus)
+	{
+		if ((size_t)conv.width > len && (size_t)conv.precision > len)
+			printf_pad(' ', conv.width - conv.precision - sign);
+		else if ((size_t)conv.width > len)
+			printf_pad(' ', (size_t)conv.width - len);
 	}
 }
 

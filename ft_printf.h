@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 13:52:07 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:27:25 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void			get_flags(t_params *conv, char *sub_format);
 void			get_width_preci(t_params *conv, va_list arg, char *sub_format);
 bool			printf_errors(t_params *conv);
 void			printf_pad(char c, int len);
+
+void			printf_print(t_params conv, size_t len, bool is_zero, bool sign);
 
 /*
 ** ft_printf_int.c:
