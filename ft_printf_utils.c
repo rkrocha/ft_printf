@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 14:57:14 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/14 15:41:08 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	printf_print(t_params conv, size_t len, bool is_zero, bool sign)
 	else if (conv.flag_zero && (size_t)conv.width > len)
 		printf_pad('0', conv.width - len);
 	if (!(is_zero && conv.flag_precision && conv.precision == 0))
-		ft_putnstr(conv.string, len);
+		ft_putstr(conv.string);
 	else if (is_zero && conv.width > 0)
 		ft_putchar(' ');
 	if (conv.flag_minus)
