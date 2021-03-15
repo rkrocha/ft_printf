@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 11:09:27 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:13:55 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static bool	printf_int_errors(t_params *conv, int *nprint)
 		(*conv).flag_zero = false;
 	if ((*conv).precision < 0)
 	{
-		(*conv).flag_precision = false; // printf errors?
-		(*conv).precision = 0;
+		// (*conv).flag_precision = false; // printf errors?
+		(*conv).precision *= -1;
 	}
 	return (false);
 }
