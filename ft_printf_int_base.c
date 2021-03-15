@@ -6,26 +6,23 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 11:53:55 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 17:44:05 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static bool	printf_int_errors(t_params *conv, int *nprint)
+static void	printf_int_adjust(t_params *conv)
 {
-	(void)conv; //REMOVE
-	(void)nprint; //REMOVE
-	if ((*conv).flag_minus && (*conv).flag_zero) // common errors?
+	if ((*conv).flag_minus && (*conv).flag_zero)
 		(*conv).flag_zero = false;
-	if ((*conv).flag_zero && (*conv).flag_precision && (*conv).precision >= 0) // common errors?
+	if ((*conv).flag_zero && (*conv).flag_precision && (*conv).precision >= 0)
 		(*conv).flag_zero = false;
 	if ((*conv).precision < 0)
 	{
-		(*conv).flag_precision = false; // printf errors?
+		(*conv).flag_precision = false;
 		(*conv).precision = 0;
 	}
-	return (false);
 }
 
 void		printf_int(t_params *conv, va_list ap, int *nprint)
@@ -34,8 +31,7 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 	bool	sign;
 	bool	is_zero;
 
-	if (printf_int_errors(conv, nprint))
-		return ;
+	printf_int_adjust(conv);
 	is_zero = false;
 	sign = false;
 	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
@@ -62,8 +58,7 @@ void		printf_hex(t_params *conv, va_list ap, int *nprint)
 	unsigned int	num;
 	bool			is_zero;
 
-	if (printf_int_errors(conv, nprint))
-		return ;
+	printf_int_adjust(conv);
 	is_zero = false;
 	num = va_arg(ap, unsigned int);
 	if (num == 0)
@@ -89,7 +84,6 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 
 	if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
 		(*conv).flag_zero = false;
-
 	num = va_arg(ap, unsigned long);
 	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
 		(*conv).string = ft_strdup("0x");

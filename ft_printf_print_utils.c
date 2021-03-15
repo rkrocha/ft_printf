@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:29:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 15:46:17 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 17:28:04 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	printf_print(t_params conv, int *nprint, bool zero, bool sign)
 			printf_putchar(' ', conv.width - conv.precision - sign, nprint);
 		else if (conv.width > conv.len && conv.width > conv.precision + sign)
 			printf_putchar(' ', conv.width - conv.len, nprint);
-	}			// is cast necessary? ^
+	}
 }
 
 void	printf_putchar(char c, int n, int *nprint)

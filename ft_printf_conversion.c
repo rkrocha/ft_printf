@@ -6,25 +6,11 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 11:37:37 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 17:29:28 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-bool	printf_errors(t_params *conv)
-{
-	if ((*conv).flag_star_width && (*conv).width < 0)
-	{
-		(*conv).width *= -1;
-		(*conv).flag_minus = true;
-	}
-	// if ((*conv).flag_minus && (*conv).flag_zero && (*conv).specifier != '%')
-	// {
-	// 	return (true); // IS THIS SUPPOSED TO HAPPEN?
-	// }
-	return (false);
-}
 
 void	printf_wid_preci(t_params *conv, va_list arg, char *sub_format)
 {
@@ -33,7 +19,14 @@ void	printf_wid_preci(t_params *conv, va_list arg, char *sub_format)
 
 	preci_ptr = ft_strchr(sub_format, '.');
 	if ((*conv).flag_star_width)
+	{
 		(*conv).width = va_arg(arg, int);
+		if ((*conv).width < 0)
+		{
+			(*conv).width *= -1;
+			(*conv).flag_minus = true;
+		}
+	}
 	else
 	{
 		width_ptr = ft_strsearch(sub_format, "123456789");

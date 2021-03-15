@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 10:08:37 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:23:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,16 @@ void	printf_str(t_params *conv, va_list ap, int *nprint)
 	char	*temp;
 
 	if ((*conv).precision < 0)
-		(*conv).flag_precision = false; // printf errors?
+		(*conv).flag_precision = false;
 	temp = va_arg(ap, char *);
-	if (temp == NULL)
-	{
-		if ((*conv).flag_precision)
-			(*conv).string = ft_substr("(null)", 0 , (*conv).precision);
-		else
-			(*conv).string = ft_strdup("(null)");
-	}
+	if (temp == NULL && (*conv).flag_precision)
+		(*conv).string = ft_substr("(null)", 0 , (*conv).precision);
+	else if (temp == NULL)
+		(*conv).string = ft_strdup("(null)");
+	else if ((*conv).flag_precision)
+		(*conv).string = ft_substr(temp, 0, (*conv).precision);
 	else
-	{
-		if ((*conv).flag_precision)
-			(*conv).string = ft_substr(temp, 0, (*conv).precision);
-		else
-			(*conv).string = ft_strdup(temp);
-	}
+		(*conv).string = ft_strdup(temp);
 	(*conv).precision = 0;
 	if ((*conv).string)
 	{

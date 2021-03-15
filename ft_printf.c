@@ -6,13 +6,13 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 09:38:06 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:29:32 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
+static void	branch_by_specifier(t_params *conv, va_list ap, int *nprint)
 {
 	if ((*conv).specifier == 'c')
 		printf_char(conv, ap, nprint);
@@ -31,7 +31,7 @@ static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 	return ;
 }
 
-static void	print_conv(const char *format, va_list ap, int *nprint, int *i)
+static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 {
 	t_params	conv;
 
@@ -39,14 +39,9 @@ static void	print_conv(const char *format, va_list ap, int *nprint, int *i)
 	if (printf_copy_conv(format, &conv, i))
 	{
 		printf_get_flags(&conv, conv.sub_format);
-		// get_bonus_flags?
 		printf_wid_preci(&conv, ap, conv.sub_format);
-		// get_bonus_length?
-		if (!printf_errors(&conv))//? negative wid and prec, multiple '.' or '*'
-		{
-			print_by_specifier(&conv, ap, nprint);
-			return ;
-		}
+		branch_by_specifier(&conv, ap, nprint);
+		return ;
 	}
 	*nprint = -1;
 	return ;
@@ -66,7 +61,7 @@ int			ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			print_conv(format, ap, &nprint, &i);
+			get_conversion(format, ap, &nprint, &i);
 		}
 		else
 		{
