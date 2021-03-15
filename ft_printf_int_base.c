@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 11:38:14 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:53:55 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static bool	printf_int_errors(t_params *conv, int *nprint)
 	(void)nprint; //REMOVE
 	if ((*conv).flag_minus && (*conv).flag_zero) // common errors?
 		(*conv).flag_zero = false;
-	// if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
-	// 	(*conv).flag_zero = false;
+	if ((*conv).flag_zero && (*conv).flag_precision && (*conv).precision >= 0) // common errors?
+		(*conv).flag_zero = false;
 	if ((*conv).precision < 0)
 	{
 		(*conv).flag_precision = false; // printf errors?
