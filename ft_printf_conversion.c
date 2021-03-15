@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 11:30:56 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:37:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	printf_errors(t_params *conv)
 {
-	if ((*conv).width < 0)
+	if ((*conv).flag_star_width && (*conv).width < 0)
 	{
 		(*conv).width *= -1;
 		(*conv).flag_minus = true;
