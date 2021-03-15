@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 08:33:01 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:45:30 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ void	printf_percent(t_params *conv, int *nprint)
 	// print_percent_errors?
 	if ((*conv).flag_minus && (*conv).flag_zero) // move to common_errors?
 		(*conv).flag_zero = false;
-	if ((*conv).width > 1)
-		*nprint += (*conv).width;	// check ft_printf return
-	else
-		*nprint += 1;
 	if (!(*conv).flag_minus && !(*conv).flag_zero && (*conv).width > 1)
-		printf_pad(' ', (*conv).width - 1);
+		printf_putchar(' ', (*conv).width - 1, nprint);
 	else if ((*conv).flag_zero && (*conv).width > 1)
-		printf_pad('0', (*conv).width - 1);
-	ft_putchar('%');
+		printf_putchar('0', (*conv).width - 1, nprint);
+	printf_putchar('%', 1, nprint);
 	if ((*conv).flag_minus && (*conv).width > 1)
-		printf_pad(' ', (*conv).width - 1);
+		printf_putchar(' ', (*conv).width - 1, nprint);
 }
 
 // REVIEW BOTH FUNCTIONS. CAN PRINTF_CHAR PRINT PERCENT?
@@ -47,11 +43,10 @@ void	printf_char(t_params *conv, va_list ap, int *nprint)
 	// printf_char_errors?
 	c = (unsigned char)va_arg(ap, int); // treat as int to suppress error?
 	if (!(*conv).flag_minus && (*conv).width > 1)
-		printf_pad(' ', (*conv).width - 1);
-	ft_putchar(c);
+		printf_putchar(' ', (*conv).width - 1, nprint);
+	printf_putchar(c, 1, nprint);
 	if ((*conv).flag_minus && (*conv).width > 1)
-		printf_pad(' ', (*conv).width - 1);
-	*nprint += 1;
+		printf_putchar(' ', (*conv).width - 1, nprint);
 }
 
 void	printf_str(t_params *conv, va_list ap, int *nprint)
@@ -76,7 +71,12 @@ void	printf_str(t_params *conv, va_list ap, int *nprint)
 			(*conv).string = ft_strdup(temp);
 	}
 	(*conv).precision = 0;
-	printf_print(*conv, ft_strlen((*conv).string), false, false);
+	if ((*conv).string)
+	{
+		(*conv).len = ft_strlen((*conv).string);
+		printf_print(*conv, nprint, false, false);
+	}
+	else
+		*nprint = -1;
 	ft_strdel(&(*conv).string);
-	*nprint +=1; // FIX
 }

@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 08:33:04 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:45:13 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,25 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 
 	if (printf_int_errors(conv, nprint))
 		return ;
+	is_zero = false;
+	sign = false;
 	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
 		num = (long)va_arg(ap, int);
 	else
 		num = (long)va_arg(ap, unsigned int);
-	sign = false;
 	if (num < 0)
 	{
 		num *= -1;
 		sign = true;
 	}
-	is_zero = false;
 	if (num == 0)
 		is_zero = true;
 	(*conv).string = ft_ullitoa_base(num, DECIMAL_BASE, false);
-	printf_print(*conv, ft_strlen((*conv).string) + sign, is_zero, sign);
-	*nprint += 1;
+	if ((*conv).string && ((*conv).len = ft_strlen((*conv).string) + sign))
+		printf_print(*conv, nprint, is_zero, sign);
+	else
+		*nprint = -1;
+	ft_strdel(&(*conv).string);
 }
 
 void		printf_hex(t_params *conv, va_list ap, int *nprint)
@@ -60,9 +63,9 @@ void		printf_hex(t_params *conv, va_list ap, int *nprint)
 	unsigned int	num;
 	bool			is_zero;
 
-	is_zero = false;
 	if (printf_int_errors(conv, nprint))
 		return ;
+	is_zero = false;
 	num = va_arg(ap, unsigned int);
 	if (num == 0)
 		is_zero = true;
@@ -70,9 +73,14 @@ void		printf_hex(t_params *conv, va_list ap, int *nprint)
 		(*conv).string = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
 	else
 		(*conv).string = ft_ullitoa_base(num, UPPER_HEX_BASE, false);
-	printf_print(*conv, ft_strlen((*conv).string), is_zero, false);
+	if ((*conv).string)
+	{
+		(*conv).len = ft_strlen((*conv).string);
+		printf_print(*conv, nprint, is_zero, false);
+	}
+	else
+		*nprint = -1;
 	ft_strdel(&(*conv).string);
-	*nprint += 1; // FIX
 }
 
 void		printf_ptr(t_params *conv, va_list ap, int *nprint)
@@ -92,7 +100,12 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 		(*conv).string = ft_strjoin("0x", temp);
 		ft_strdel(&temp);
 	}
-	printf_print(*conv, ft_strlen((*conv).string), false, false);
+	if ((*conv).string)
+	{
+		(*conv).len = ft_strlen((*conv).string);
+		printf_print(*conv, nprint, false, false);
+	}
+	else
+		*nprint = -1;
 	ft_strdel(&(*conv).string);
-	*nprint += 1; // FIX
 }

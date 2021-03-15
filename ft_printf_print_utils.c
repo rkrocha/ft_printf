@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:29:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 08:39:18 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:59:13 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,52 @@
 **		can be prepared before being sent to this function.
 */
 
-void	printf_print(t_params conv, size_t len, bool zero, bool sign)
+void	printf_print(t_params conv, int *nprint, bool zero, bool sign)
 {
 	if (!conv.flag_minus)
 	{
-		if ((size_t)conv.precision >= len)
-			printf_pad(' ', conv.width - conv.precision - sign);
+		if ((size_t)conv.precision >= conv.len)
+			printf_putchar(' ', conv.width - conv.precision - sign, nprint);
 		else if (!conv.flag_zero)
-			printf_pad(' ', conv.width - len);
+			printf_putchar(' ', conv.width - conv.len, nprint);
 	}
 	if (sign)
-		ft_putchar('-');
-	if ((size_t)conv.precision >= len)
-		printf_pad('0', conv.precision - len + sign);
-	else if (conv.flag_zero && (size_t)conv.width > len)
-		printf_pad('0', conv.width - len);
+		printf_putchar('-', 1, nprint);
+	if ((size_t)conv.precision >= conv.len)
+		printf_putchar('0', conv.precision - conv.len + sign, nprint);
+	else if (conv.flag_zero && (size_t)conv.width > conv.len)
+		printf_putchar('0', conv.width - conv.len, nprint);
 	if (!(zero && conv.flag_precision && conv.precision == 0))
-		ft_putstr(conv.string);
+		printf_putstr(conv.string, nprint);
 	else if (zero && conv.width > 0)
-		ft_putchar(' ');
+		printf_putchar(' ', 1, nprint);
 	if (conv.flag_minus)
 	{
-		if ((size_t)conv.width > len && (size_t)conv.precision > len)
-			printf_pad(' ', conv.width - conv.precision - sign);
-		else if ((size_t)conv.width > len)
-			printf_pad(' ', (size_t)conv.width - len);
+		if ((size_t)conv.width > conv.len && (size_t)conv.precision > conv.len)
+			printf_putchar(' ', conv.width - conv.precision - sign, nprint);
+		else if ((size_t)conv.width > conv.len)
+			printf_putchar(' ', (size_t)conv.width - conv.len, nprint);
 	}
 }
 
-void	printf_pad(char c, int len)
+void	printf_putchar(char c, int n, int *nprint)
 {
-	while (len > 0)
+	while (n > 0)
 	{
-		ft_putchar(c);
-		len--;
+		write(1, &c, 1);
+		(*nprint)++;
+		n--;
 	}
+}
+
+void	printf_putstr(const char *str, int *nprint)
+{
+	size_t	len;
+
+	if (!str)
+		return ;
+	len = ft_strlen(str);
+	write(1, str, len);
+	(*nprint) += len;
+
 }

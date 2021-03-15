@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 08:40:56 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:58:42 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_params
 	int		precision;
 
 	char	*string;
+	size_t	len;
 }				t_params;
 
 /*
@@ -55,8 +56,9 @@ bool			printf_errors(t_params *conv);
 /*
 ** ft_printf_print_utils.c:
 */
-void			printf_pad(char c, int len);
-void			printf_print(t_params conv, size_t len, bool zero, bool sign);
+void			printf_print(t_params conv, int *nprint, bool zero, bool sign);
+void			printf_putchar(char c, int n, int *nprint);
+void			printf_putstr(const char *str, int *nprint);
 
 /*
 ** ft_printf_int_base.c:
