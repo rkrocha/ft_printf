@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:29:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 09:59:13 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:31:49 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	printf_print(t_params conv, int *nprint, bool zero, bool sign)
 	{
 		if ((size_t)conv.width > conv.len && (size_t)conv.precision > conv.len)
 			printf_putchar(' ', conv.width - conv.precision - sign, nprint);
-		else if ((size_t)conv.width > conv.len)
+		else if ((size_t)conv.width > conv.len + sign)
 			printf_putchar(' ', (size_t)conv.width - conv.len, nprint);
 	}
 }

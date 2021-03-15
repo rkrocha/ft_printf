@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 16:35:17 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 12:39:58 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ all flags:	# " " +
 
 int	main(void)
 {
-	ft_printf("%-20.6s\n", "hi low");
+	printf("orig: |%-4.3d|\n", -12);
+	ft_printf("mine: |%-4.3d|\n", -12);
 }
