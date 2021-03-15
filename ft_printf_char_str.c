@@ -6,13 +6,14 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 09:45:30 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 10:08:37 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
+**	(%%) PERCENT CONVERSION:
 **	Always prints a '%', using width but ignoring precision.
 **	The '0' flag is ignored when '-' flag is present.
 */
@@ -30,9 +31,8 @@ void	printf_percent(t_params *conv, int *nprint)
 		printf_putchar(' ', (*conv).width - 1, nprint);
 }
 
-// REVIEW BOTH FUNCTIONS. CAN PRINTF_CHAR PRINT PERCENT?
-
 /*
+** (%c) CHAR CONVERSION:
 ** Precision and '0' flags result in undefined behavior with c conversion.
 ** The '0' flag is ignored when '-' flag is present.
 */

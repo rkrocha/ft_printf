@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 08:41:00 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 10:16:00 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	printf_wid_preci(t_params *conv, va_list arg, char *sub_format)
 		(*conv).precision = va_arg(arg, int);
 	else if ((*conv).flag_precision)
 		(*conv).precision = ft_atoi(preci_ptr + 1);
-} 				// use atoll? ^
+}
 
 void	printf_get_flags(t_params *conv, char *sub_format)
 {
