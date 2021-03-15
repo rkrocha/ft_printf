@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 10:56:26 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:46:30 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_params
 	int		width;
 	int		precision;
 	char	*string;
-	size_t	len;
+	int		len;
 }				t_params;
 
 /*

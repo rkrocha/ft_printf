@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:29:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 14:38:22 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:46:17 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ void	printf_print(t_params conv, int *nprint, bool zero, bool sign)
 {
 	if (!conv.flag_minus)
 	{
-		if ((size_t)conv.precision >= conv.len)
+		if (conv.precision >= conv.len)
 			printf_putchar(' ', conv.width - conv.precision - sign, nprint);
 		else if (!conv.flag_zero)
 			printf_putchar(' ', conv.width - conv.len, nprint);
 	}
 	if (sign)
 		printf_putchar('-', 1, nprint);
-	if ((size_t)conv.precision >= conv.len)
+	if (conv.precision >= conv.len)
 		printf_putchar('0', conv.precision - conv.len + sign, nprint);
-	else if (conv.flag_zero && (size_t)conv.width > conv.len)
+	else if (conv.flag_zero && conv.width > conv.len)
 		printf_putchar('0', conv.width - conv.len, nprint);
 	if (!(zero && conv.flag_precision && conv.precision == 0))
 		printf_putstr(conv.string, nprint);
@@ -63,11 +63,11 @@ void	printf_print(t_params conv, int *nprint, bool zero, bool sign)
 		printf_putchar(' ', 1, nprint);
 	if (conv.flag_minus)
 	{
-		if ((size_t)conv.width > conv.len && (size_t)conv.precision > conv.len)
+		if (conv.width > conv.len && conv.precision > conv.len)
 			printf_putchar(' ', conv.width - conv.precision - sign, nprint);
-		else if ((size_t)conv.width >= conv.len + sign)
-			printf_putchar(' ', (size_t)conv.width - conv.len, nprint);
-	}
+		else if (conv.width > conv.len && conv.width > conv.precision + sign)
+			printf_putchar(' ', conv.width - conv.len, nprint);
+	}			// is cast necessary? ^
 }
 
 void	printf_putchar(char c, int n, int *nprint)
@@ -89,5 +89,4 @@ void	printf_putstr(const char *str, int *nprint)
 	len = ft_strlen(str);
 	write(1, str, len);
 	(*nprint) += len;
-
 }
