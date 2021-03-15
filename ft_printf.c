@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/14 13:45:10 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/15 08:41:39 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,23 @@ static void	print_by_specifier(t_params *conv, va_list ap, int *nprint)
 	return ;
 }
 
-static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
+static void	print_conv(const char *format, va_list ap, int *nprint, int *i)
 {
 	t_params	conv;
 
 	ft_bzero(&conv, sizeof(conv));
-	if (copy_conversion(format, &conv, i))
+	if (printf_copy_conv(format, &conv, i))
 	{
-		get_flags(&conv, conv.sub_format);
+		printf_get_flags(&conv, conv.sub_format);
 		// get_bonus_flags?
-		get_width_preci(&conv, ap, conv.sub_format);
+		printf_wid_preci(&conv, ap, conv.sub_format);
 		// get_bonus_length?
 		if (!printf_errors(&conv))//? negative wid and prec, multiple '.' or '*'
 		{
 			print_by_specifier(&conv, ap, nprint);
-			ft_strdel(&(conv.sub_format));
 			return ;
 		}
 	}
-	ft_strdel(&(conv.sub_format));
 	*nprint = -1;
 	return ;
 }
@@ -68,7 +66,7 @@ int			ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			get_conversion(format, ap, &nprint, &i);
+			print_conv(format, ap, &nprint, &i);
 		}
 		else
 		{
