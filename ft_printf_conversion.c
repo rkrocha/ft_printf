@@ -6,13 +6,34 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 14:26:50 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 18:32:56 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	printf_wid_preci(t_params *conv, va_list arg, char *sub_format)
+static void	discard_extra_stars(t_params conv, va_list ap)
+{
+	ssize_t	extra_stars;
+	size_t	i;
+
+	extra_stars = 0;
+	i = 0;
+	while (conv.sub_format[i])
+	{
+		if (conv.sub_format[i] == '*')
+			extra_stars++;
+		i++;
+	}
+	extra_stars = extra_stars - conv.flag_star_width - conv.flag_star_preci;
+	while (extra_stars > 0)
+	{
+		va_arg(ap, int);
+		extra_stars--;
+	}
+}
+
+void	printf_wid_preci(t_params *conv, va_list ap, char *sub_format)
 {
 	char	*width_ptr;
 	char	*preci_ptr;
@@ -20,7 +41,7 @@ void	printf_wid_preci(t_params *conv, va_list arg, char *sub_format)
 	preci_ptr = ft_strchr(sub_format, '.');
 	if ((*conv).flag_star_width)
 	{
-		(*conv).width = va_arg(arg, int);
+		(*conv).width = va_arg(ap, int);
 		if ((*conv).width < 0)
 		{
 			(*conv).width *= -1;
@@ -33,8 +54,9 @@ void	printf_wid_preci(t_params *conv, va_list arg, char *sub_format)
 		if (width_ptr && (!preci_ptr || width_ptr < preci_ptr))
 			(*conv).width = ft_atoi(width_ptr);
 	}
+	discard_extra_stars(*conv, ap);
 	if ((*conv).flag_star_preci)
-		(*conv).precision = va_arg(arg, int);
+		(*conv).precision = va_arg(ap, int);
 	else if ((*conv).flag_precision)
 		(*conv).precision = ft_atoi(preci_ptr + 1);
 }
