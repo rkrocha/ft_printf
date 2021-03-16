@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 18:32:56 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 18:57:44 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	printf_wid_preci(t_params *conv, va_list ap, char *sub_format)
 	char	*width_ptr;
 	char	*preci_ptr;
 
+	discard_extra_stars(*conv, ap);
 	preci_ptr = ft_strchr(sub_format, '.');
 	if ((*conv).flag_star_width)
 	{
@@ -54,7 +55,6 @@ void	printf_wid_preci(t_params *conv, va_list ap, char *sub_format)
 		if (width_ptr && (!preci_ptr || width_ptr < preci_ptr))
 			(*conv).width = ft_atoi(width_ptr);
 	}
-	discard_extra_stars(*conv, ap);
 	if ((*conv).flag_star_preci)
 		(*conv).precision = va_arg(ap, int);
 	else if ((*conv).flag_precision)
