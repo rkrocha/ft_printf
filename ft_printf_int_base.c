@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 09:47:44 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:10:03 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 
 	printf_int_adjust(conv);
 	num = va_arg(ap, unsigned long);
+	pad = NULL;
 	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
 		(*conv).string = ft_strdup("0x");
 	else
