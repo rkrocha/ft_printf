@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 08:10:09 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:12:47 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	printf_prep_str(t_params *conv, va_list ap, int *nprint)
 {
 	char	*temp;
 
-	if ((*conv).flag_zero)
+	if ((*conv).flag_minus && (*conv).flag_zero)
 		(*conv).flag_zero = false;
 	if ((*conv).precision < 0)
 		(*conv).flag_precision = false;
