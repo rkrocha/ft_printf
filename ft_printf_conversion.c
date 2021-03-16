@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 17:29:28 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:26:50 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ void	printf_get_flags(t_params *conv, char *sub_format)
 			(*conv).flag_zero = true;
 	if ((ptr = ft_strchr(sub_format, '*')) && (!preci_ptr || ptr < preci_ptr))
 		(*conv).flag_star_width = true;
-	if (preci_ptr && (ptr = ft_strrchr(sub_format, '*')) && ptr > preci_ptr)
-		(*conv).flag_star_preci = true;	// should it be ptr == preci_ptr + 1? ^
+	if (preci_ptr && (ptr = ft_strrchr(sub_format, '*')))
+		if (ptr == preci_ptr + 1)
+			(*conv).flag_star_preci = true;
 }
 
 bool	printf_copy_conv(const char *format, t_params *conv, int *i)
