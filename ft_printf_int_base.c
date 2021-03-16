@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 17:44:05 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 09:47:44 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	printf_int_adjust(t_params *conv)
 	}
 }
 
-void		printf_int(t_params *conv, va_list ap, int *nprint)
+void		printf_prep_int(t_params *conv, va_list ap, int *nprint)
 {
 	long	num;
 	bool	sign;
@@ -53,7 +53,7 @@ void		printf_int(t_params *conv, va_list ap, int *nprint)
 	ft_strdel(&(*conv).string);
 }
 
-void		printf_hex(t_params *conv, va_list ap, int *nprint)
+void		printf_prep_hex(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned int	num;
 	bool			is_zero;
@@ -77,20 +77,44 @@ void		printf_hex(t_params *conv, va_list ap, int *nprint)
 	ft_strdel(&(*conv).string);
 }
 
-void		printf_ptr(t_params *conv, va_list ap, int *nprint)
+static char	*ptr_pad(t_params conv, char *temp)
+{
+	char	*str;
+	int		len;
+	int		pad;
+
+	if (!temp)
+		return (NULL);
+	len = ft_strlen(temp);
+	if (conv.flag_precision && conv.precision > (len + 2))
+		pad = conv.precision - len + 2;
+	else if (conv.flag_zero && conv.width > (len + 2))
+		pad = conv.width - len;
+	else
+		pad = 2;
+	if (!(str = (char *)malloc((pad + 1) * sizeof(char))))
+		return (NULL);
+	ft_memset(str, '0', pad);
+	str[1] = 'x';
+	str[pad] = '\0';
+	return (str);
+}
+
+void		printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned long	num;
+	char			*pad;
 	char			*temp;
 
-	if ((*conv).flag_zero && (*conv).precision > 0) // common errors?
-		(*conv).flag_zero = false;
+	printf_int_adjust(conv);
 	num = va_arg(ap, unsigned long);
 	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
 		(*conv).string = ft_strdup("0x");
 	else
 	{
 		temp = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
-		(*conv).string = ft_strjoin("0x", temp);
+		pad = ptr_pad(*conv, temp);
+		(*conv).string = ft_strjoin(pad, temp);
 		ft_strdel(&temp);
 	}
 	if ((*conv).string)
@@ -100,5 +124,6 @@ void		printf_ptr(t_params *conv, va_list ap, int *nprint)
 	}
 	else
 		*nprint = -1;
+	ft_strdel(&pad);
 	ft_strdel(&(*conv).string);
 }
