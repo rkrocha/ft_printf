@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 10:00:24 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:48:38 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,33 @@ all flags:	# " " +
 
 int	main(void)
 {
-	ft_printf("-->|%-16.p|<--\n", NULL);
+	printf("-->|%----16..p|<--\n", NULL);
+	ft_printf("-->|%----16..p|<--\n\n", NULL);
+
+	printf("-->|%0000p|<--\n", NULL);
+	ft_printf("-->|%0000p|<--\n\n", NULL);
+
+	printf("-->|%-0-0-0-0p|<--\n", NULL);
+	ft_printf("-->|%-0-0-0-0p|<--\n\n", NULL);
+
+	printf("-->|%0*0*0*0p|<--\n", NULL);
+	ft_printf("-->|%0*0*0*0p|<--\n\n", NULL);
+
+	printf("-->|%0*0.*0*0p|<--\n", NULL);
+	ft_printf("-->|%0*0.*0*0p|<--\n\n", NULL);
+
+	printf("-->|%0*0*0.*0p|<--\n", NULL);
+	ft_printf("-->|%0*0*0.*0p|<--\n\n", NULL);
+
+	printf("-->|%12.10*p|<--\n", NULL);
+	ft_printf("-->|%12.10*p|<--\n\n", NULL);
+
+	printf("-->|%00--p|<--\n", NULL);
+	ft_printf("-->|%00--p|<--\n\n", NULL);
+
+	printf("-->|%00.-0p|<--\n", NULL);
+	ft_printf("-->|%00.-0p|<--\n\n", NULL);
+
+	printf("-->|%1010p|<--\n", NULL);
+	ft_printf("-->|%1010p|<--\n\n", NULL);
 }
