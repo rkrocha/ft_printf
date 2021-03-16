@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 20:04:03 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 15:30:54 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 09:52:33 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,26 @@ all flags:	# " " +
 
 int	main(void)
 {
-	printf("orig: |%-4.3d|\n", -12);
-	ft_printf("mine: |%-4.3d|\n", -12);
+	printf("orig: |%.10p|\n", 1234);
+	ft_printf("mine: |%.10p|\n\n", 1234);
+
+	printf("orig: |%010p|\n", 1234);
+	ft_printf("mine: |%010p|\n\n", 1234);
+
+	printf("orig: |%12.10p|\n", 1234);
+	ft_printf("mine: |%12.10p|\n\n", 1234);
+	printf("orig: |%012.10p|\n", 1234);
+	ft_printf("mine: |%012.10p|\n\n", 1234);
+
+	printf("orig: |%8.10p|\n", 1234);
+	ft_printf("mine: |%8.10p|\n\n", 1234);
+
+	printf("orig: |%09.10p|\n", 1234);
+	ft_printf("mine: |%09.10p|\n\n", 1234);
+
+	printf("orig: |%09.8p|\n", 1234);
+	ft_printf("mine: |%09.8p|\n\n", 1234);
+
+	printf("orig: |%.p|\n", 1234);
+	ft_printf("mine: |%.p|\n\n", 1234);
 }

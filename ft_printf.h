@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 17:39:51 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:10:56 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void			printf_wid_preci(t_params *conv, va_list arg, char *sub_format);
 */
 void			printf_char(t_params *conv, va_list ap, int *nprint);
 void			printf_percent(t_params *conv, int *nprint);
-void			printf_str(t_params *conv, va_list ap, int *nprint);
+void			printf_prep_str(t_params *conv, va_list ap, int *nprint);
 
 /*
 ** ft_printf_int_base.c:
 */
-void			printf_int(t_params *conv, va_list ap, int *nprint);
-void			printf_hex(t_params *conv, va_list ap, int *nprint);
-void			printf_ptr(t_params *conv, va_list ap, int *nprint);
+void			printf_prep_int(t_params *conv, va_list ap, int *nprint);
+void			printf_prep_hex(t_params *conv, va_list ap, int *nprint);
+void			printf_prep_ptr(t_params *conv, va_list ap, int *nprint);
 
 /*
 ** ft_printf_print_utils.c:

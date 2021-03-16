@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 18:23:37 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:10:09 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	printf_char(t_params *conv, va_list ap, int *nprint)
 	unsigned char	c;
 
 	// printf_char_errors?
-	c = (unsigned char)va_arg(ap, int); // treat as int to suppress error?
+	c = (unsigned char)va_arg(ap, int);
 	if (!(*conv).flag_minus && (*conv).width > 1)
 		printf_putchar(' ', (*conv).width - 1, nprint);
 	printf_putchar(c, 1, nprint);
@@ -49,10 +49,12 @@ void	printf_char(t_params *conv, va_list ap, int *nprint)
 		printf_putchar(' ', (*conv).width - 1, nprint);
 }
 
-void	printf_str(t_params *conv, va_list ap, int *nprint)
+void	printf_prep_str(t_params *conv, va_list ap, int *nprint)
 {
 	char	*temp;
 
+	if ((*conv).flag_zero)
+		(*conv).flag_zero = false;
 	if ((*conv).precision < 0)
 		(*conv).flag_precision = false;
 	temp = va_arg(ap, char *);

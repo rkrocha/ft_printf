@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/15 18:29:32 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 08:14:19 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ static void	branch_by_specifier(t_params *conv, va_list ap, int *nprint)
 	if ((*conv).specifier == 'c')
 		printf_char(conv, ap, nprint);
 	else if ((*conv).specifier == 's')
-		printf_str(conv, ap, nprint);
+		printf_prep_str(conv, ap, nprint);
 	else if ((*conv).specifier == 'p')
-		printf_ptr(conv, ap, nprint);
+		printf_prep_ptr(conv, ap, nprint);
 	else if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
-		printf_int(conv, ap, nprint);
+		printf_prep_int(conv, ap, nprint);
 	else if ((*conv).specifier == 'u')
-		printf_int(conv, ap, nprint);
+		printf_prep_int(conv, ap, nprint);
 	else if ((*conv).specifier == 'x' || (*conv).specifier == 'X')
-		printf_hex(conv, ap, nprint);
+		printf_prep_hex(conv, ap, nprint);
 	else if ((*conv).specifier == '%')
 		printf_percent(conv, nprint);
 	return ;
