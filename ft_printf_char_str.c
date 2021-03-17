@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 15:13:57 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:26:36 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	printf_char(t_params conv, va_list ap, int *nprint)
 {
-	unsigned char	c;
+	int	c;
 
 	if (conv.specifier == '%')
 		c = '%';
 	else
-		c = (unsigned char)va_arg(ap, int);
+		c = va_arg(ap, int);
 	if (!conv.flag_minus && !conv.flag_zero && conv.width > 1)
 		printf_putchar(' ', conv.width - 1, nprint);
 	else if (conv.flag_zero && conv.width > 1)
