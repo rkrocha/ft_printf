@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 16:09:54 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 19:41:03 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int			ft_printf(const char *format, ...)
 	va_start(ap, format);
 	nprint = 0;
 	printed = (char *)format;
-	while ((sub_format = ft_strchr(printed, '%')))
+	while (nprint != -1 && (sub_format = ft_strchr(printed, '%')))
 	{
 		ft_putnstr(printed, sub_format - printed);
 		nprint += sub_format - printed;
 		get_conversion(&sub_format, &nprint, ap);
 		printed = sub_format;
 	}
-	if (printed && *printed)
+	if (nprint != -1 && printed && *printed)
 	{
 		ft_putstr(printed);
 		nprint += ft_strlen(printed);

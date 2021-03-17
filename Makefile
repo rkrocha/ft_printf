@@ -6,7 +6,7 @@
 #    By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 14:09:09 by rkochhan          #+#    #+#              #
-#    Updated: 2021/03/17 16:11:21 by rkochhan         ###   ########.fr        #
+#    Updated: 2021/03/17 16:37:58 by rkochhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ $(NAME): $(OBJ)
 	@ make -s -C $(LIBFT)
 	@ cp $(LIBFT)/libft.a $(NAME)
 	@ ar rc $(NAME) $(OBJ)
-	@ ranlib $(NAME)
 	@ echo "Made $(value NAME)"
 
 all: $(NAME)
