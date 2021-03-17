@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 08:59:38 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:12:53 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void			printf_get_flags(t_params *conv, va_list ap);
 /*
 ** ft_printf_char_str.c:
 */
-void			printf_char(t_params *conv, va_list ap, int *nprint);
-void			printf_percent(t_params *conv, int *nprint);
+void			printf_char(t_params conv, va_list ap, int *nprint);
 void			printf_prep_str(t_params *conv, va_list ap, int *nprint);
 
 /*

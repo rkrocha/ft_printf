@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 09:35:31 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:58:33 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*ptr_pad(t_params conv, char *temp)
 	if (!temp)
 		return (NULL);
 	len = ft_strlen(temp);
-	if (conv.flag_precision && conv.precision > (len + 2))
+	if (conv.flag_precision && conv.precision > len)
 		pad = conv.precision - len + 2;
 	else if (conv.flag_zero && conv.width > (len + 2))
 		pad = conv.width - len;
