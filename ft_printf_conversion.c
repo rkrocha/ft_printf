@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 08:36:45 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 09:23:12 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,18 @@ void		printf_get_flags(t_params *conv, va_list ap)
 	get_width_precision(conv, ap);
 }
 
-bool		printf_copy_conv(const char *format, t_params *conv, int *i)
+bool		printf_copy_conv(char **start, t_params *conv)
 {
-	const char	*start;
-	const char	*end;
+	char	*end;
 
-	start = &format[*i];
-	if ((end = ft_strsearch(start, PRINTF_SPECS)))
+	(*start)++;
+	if ((end = ft_strsearch(*start, PRINTF_SPECS)))
 	{
-		if (end == ft_strignore(start, PRINTF_VALID))
+		if (end == ft_strignore(*start, PRINTF_VALID))
 		{
-			(*conv).string = ft_substr(start, 0, end - start + 1);
+			(*conv).string = ft_substr(*start, 0, end - *start + 1);
 			(*conv).specifier = *end;
-			*i += end - start + 1;
+			*start = end + 1;
 			if ((*conv).string)
 				return (true);
 		}

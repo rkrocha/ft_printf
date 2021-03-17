@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 08:15:02 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 09:35:31 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void		printf_prep_int(t_params *conv, va_list ap, int *nprint)
 	bool	sign;
 	bool	is_zero;
 
-	is_zero = false;
-	sign = false;
 	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
 		num = (long)va_arg(ap, int);
 	else
 		num = (long)va_arg(ap, unsigned int);
+	sign = false;
 	if (num < 0)
 	{
 		num *= -1;
 		sign = true;
 	}
+	is_zero = false;
 	if (num == 0)
 		is_zero = true;
 	(*conv).string = ft_ullitoa_base(num, DECIMAL_BASE, false);
@@ -44,8 +44,8 @@ void		printf_prep_hex(t_params *conv, va_list ap, int *nprint)
 	unsigned int	num;
 	bool			is_zero;
 
-	is_zero = false;
 	num = va_arg(ap, unsigned int);
+	is_zero = false;
 	if (num == 0)
 		is_zero = true;
 	if ((*conv).specifier == 'x')
