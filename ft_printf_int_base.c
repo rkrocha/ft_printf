@@ -6,24 +6,11 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 10:10:03 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 08:15:02 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void	printf_int_adjust(t_params *conv)
-{
-	if ((*conv).flag_minus && (*conv).flag_zero)
-		(*conv).flag_zero = false;
-	if ((*conv).flag_zero && (*conv).flag_precision && (*conv).precision >= 0)
-		(*conv).flag_zero = false;
-	if ((*conv).precision < 0)
-	{
-		(*conv).flag_precision = false;
-		(*conv).precision = 0;
-	}
-}
 
 void		printf_prep_int(t_params *conv, va_list ap, int *nprint)
 {
@@ -31,7 +18,6 @@ void		printf_prep_int(t_params *conv, va_list ap, int *nprint)
 	bool	sign;
 	bool	is_zero;
 
-	printf_int_adjust(conv);
 	is_zero = false;
 	sign = false;
 	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
@@ -58,7 +44,6 @@ void		printf_prep_hex(t_params *conv, va_list ap, int *nprint)
 	unsigned int	num;
 	bool			is_zero;
 
-	printf_int_adjust(conv);
 	is_zero = false;
 	num = va_arg(ap, unsigned int);
 	if (num == 0)
@@ -106,7 +91,6 @@ void		printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 	char			*pad;
 	char			*temp;
 
-	printf_int_adjust(conv);
 	num = va_arg(ap, unsigned long);
 	pad = NULL;
 	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
@@ -117,6 +101,7 @@ void		printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 		pad = ptr_pad(*conv, temp);
 		(*conv).string = ft_strjoin(pad, temp);
 		ft_strdel(&temp);
+		ft_strdel(&pad);
 	}
 	if ((*conv).string)
 	{
@@ -125,6 +110,5 @@ void		printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 	}
 	else
 		*nprint = -1;
-	ft_strdel(&pad);
 	ft_strdel(&(*conv).string);
 }

@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 23:32:51 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 08:09:28 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # define PRINTF_SPECS "cspdiuxX%"
 # define PRINTF_VALID "-0.*123456789"
 # define PRINTF_FLAGS "-0.*"
-# define SUB_FORMAT_LEN 24
 
 typedef struct	s_params
 {

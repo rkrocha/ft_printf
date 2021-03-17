@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 23:33:34 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 00:42:54 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	get_conversion(const char *format, va_list ap, int *nprint, int *i)
 	ft_bzero(&conv, sizeof(conv));
 	if (printf_copy_conv(format, &conv, i))
 	{
-		printf_get_flags(&conv, ap); // duplicate flags?
+		printf_get_flags(&conv, ap);
 		ft_strdel(&(conv.string));
 		branch_by_specifier(&conv, ap, nprint);
 		return ;

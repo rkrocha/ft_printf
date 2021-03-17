@@ -6,11 +6,29 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 23:33:44 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 08:21:22 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static void	adjust_flags(t_params *conv)
+{
+	if ((*conv).width < 0)
+	{
+		(*conv).width *= -1;
+		(*conv).flag_minus = true;
+	}
+	if ((*conv).precision < 0)
+	{
+		(*conv).precision = 0;
+		(*conv).flag_precision = false;
+	}
+	if ((*conv).flag_minus && (*conv).flag_zero)
+		(*conv).flag_zero = false;
+	if ((*conv).flag_zero && (*conv).flag_precision && (*conv).precision >= 0)
+		(*conv).flag_zero = false;
+}
 
 static char	*get_precision_value(t_params *conv, va_list ap, char *tracker)
 {
@@ -28,11 +46,6 @@ static char	*get_precision_value(t_params *conv, va_list ap, char *tracker)
 	}
 	else
 		(*conv).precision = 0;
-	if ((*conv).precision < 0)
-	{
-		(*conv).flag_precision = false;
-		(*conv).precision = 0;
-	}
 	return (tracker);
 }
 
@@ -60,32 +73,26 @@ static void	get_width_precision(t_params *conv, va_list ap)
 		else
 			break ;
 	}
+	adjust_flags(conv);
 }
 
 void		printf_get_flags(t_params *conv, va_list ap)
 {
 	char	*ptr;
-	char	*sub_format;
 
-	sub_format = (*conv).string;
-	if (ft_strchr(sub_format, '.'))
+	if (ft_strchr((*conv).string, '.'))
 		(*conv).flag_precision = true;
-	if (ft_strchr(sub_format, '-'))
+	if (ft_strchr((*conv).string, '-'))
 		(*conv).flag_minus = true;
-	ptr = ft_strchr(sub_format, '0');
+	ptr = ft_strchr((*conv).string, '0');
 	while (ptr)
 	{
-		if (ptr == sub_format || (*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
+		if (ptr == (*conv).string ||
+								(*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
 			(*conv).flag_zero = true;
-		ptr++;
-		ptr = ft_strchr(ptr, '0');
+		ptr = ft_strchr(++ptr, '0');
 	}
 	get_width_precision(conv, ap);
-		if ((*conv).width < 0)
-	{
-		(*conv).width *= -1;
-		(*conv).flag_minus = true;
-	}
 }
 
 bool		printf_copy_conv(const char *format, t_params *conv, int *i)
@@ -96,16 +103,13 @@ bool		printf_copy_conv(const char *format, t_params *conv, int *i)
 	start = &format[*i];
 	if ((end = ft_strsearch(start, PRINTF_SPECS)))
 	{
-		if (end - start + 1 < SUB_FORMAT_LEN) // keep format len?
+		if (end == ft_strignore(start, PRINTF_VALID))
 		{
-			if (end == ft_strignore(start, PRINTF_VALID))
-			{
-				(*conv).string = ft_substr(start, 0, end - start + 1);
-				(*conv).specifier = *end;
-				*i += end - start + 1;
-				if ((*conv).string)
-					return (true);
-			}
+			(*conv).string = ft_substr(start, 0, end - start + 1);
+			(*conv).specifier = *end;
+			*i += end - start + 1;
+			if ((*conv).string)
+				return (true);
 		}
 	}
 	return (false);

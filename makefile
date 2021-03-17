@@ -6,7 +6,7 @@
 #    By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 14:09:09 by rkochhan          #+#    #+#              #
-#    Updated: 2021/03/11 22:06:04 by rkochhan         ###   ########.fr        #
+#    Updated: 2021/03/16 22:06:04 by rkochhan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,5 @@ fclean: clean
 	@ rm -rf $(NAME)
 
 re: fclean all
-
-src:
-	@ ls | grep "\.c"$ | grep -v main.c | xargs | sed 's/ / \\\n\t\t/g'
 
 .PHONY: all clean fclean re src
