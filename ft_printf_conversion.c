@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 09:23:12 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:23:58 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	adjust_flags(t_params *conv)
 	}
 	if ((*conv).flag_minus && (*conv).flag_zero)
 		(*conv).flag_zero = false;
-	if ((*conv).flag_zero && (*conv).specifier != '%' &&
-							(*conv).flag_precision && (*conv).precision >= 0)
-		(*conv).flag_zero = false;
+	if ((*conv).flag_zero && (*conv).flag_precision && (*conv).precision >= 0)
+		if (!ft_strchr("cs%", (*conv).specifier))
+			(*conv).flag_zero = false;
 }
 
 static char	*get_precision_value(t_params *conv, va_list ap, char *tracker)
