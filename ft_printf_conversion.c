@@ -6,84 +6,89 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/16 18:57:44 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/16 23:33:44 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	discard_extra_stars(t_params conv, va_list ap)
+static char	*get_precision_value(t_params *conv, va_list ap, char *tracker)
 {
-	ssize_t	extra_stars;
-	size_t	i;
-
-	extra_stars = 0;
-	i = 0;
-	while (conv.sub_format[i])
+	if (ft_isdigit(*tracker))
 	{
-		if (conv.sub_format[i] == '*')
-			extra_stars++;
-		i++;
+		(*conv).precision = ft_atoi(tracker);
+		tracker = ft_strignore(tracker, "0123456789");
+		tracker = ft_strsearch(tracker, ".123456789*");
 	}
-	extra_stars = extra_stars - conv.flag_star_width - conv.flag_star_preci;
-	while (extra_stars > 0)
+	else if (*tracker == '*')
 	{
-		va_arg(ap, int);
-		extra_stars--;
-	}
-}
-
-void	printf_wid_preci(t_params *conv, va_list ap, char *sub_format)
-{
-	char	*width_ptr;
-	char	*preci_ptr;
-
-	discard_extra_stars(*conv, ap);
-	preci_ptr = ft_strchr(sub_format, '.');
-	if ((*conv).flag_star_width)
-	{
-		(*conv).width = va_arg(ap, int);
-		if ((*conv).width < 0)
-		{
-			(*conv).width *= -1;
-			(*conv).flag_minus = true;
-		}
+		(*conv).precision = va_arg(ap, int);
+		tracker++;
+		tracker = ft_strsearch(tracker, ".123456789*");
 	}
 	else
+		(*conv).precision = 0;
+	if ((*conv).precision < 0)
 	{
-		width_ptr = ft_strsearch(sub_format, "123456789");
-		if (width_ptr && (!preci_ptr || width_ptr < preci_ptr))
-			(*conv).width = ft_atoi(width_ptr);
+		(*conv).flag_precision = false;
+		(*conv).precision = 0;
 	}
-	if ((*conv).flag_star_preci)
-		(*conv).precision = va_arg(ap, int);
-	else if ((*conv).flag_precision)
-		(*conv).precision = ft_atoi(preci_ptr + 1);
+	return (tracker);
 }
 
-void	printf_get_flags(t_params *conv, char *sub_format)
+static void	get_width_precision(t_params *conv, va_list ap)
 {
-	char	*digit_ptr;
-	char	*preci_ptr;
-	char	*ptr;
+	char	*tracker;
 
-	digit_ptr = ft_strsearch(sub_format, "123456789");
-	if ((preci_ptr = ft_strchr(sub_format, '.')))
-		(*conv).flag_precision = true;
-	if ((ptr = ft_strchr(sub_format, '-')) && (!preci_ptr || ptr < preci_ptr))
-		if (!digit_ptr || ptr < digit_ptr)
-			(*conv).flag_minus = true;
-	if ((ptr = ft_strchr(sub_format, '0')) && (!preci_ptr || ptr < preci_ptr))
-		if (!digit_ptr || ptr < digit_ptr)
-			(*conv).flag_zero = true;
-	if ((ptr = ft_strchr(sub_format, '*')) && (!preci_ptr || ptr < preci_ptr))
-		(*conv).flag_star_width = true;
-	if (preci_ptr && (ptr = ft_strrchr(sub_format, '*')))
-		if (ptr == preci_ptr + 1)
-			(*conv).flag_star_preci = true;
+	tracker = ft_strsearch((*conv).string, ".123456789*");
+	while (tracker && *tracker)
+	{
+		if (*tracker == '.')
+			tracker = get_precision_value(conv, ap, tracker + 1);
+		else if (ft_isdigit(*tracker))
+		{
+			(*conv).width = ft_atoi(tracker);
+			tracker = ft_strignore(tracker, "0123456789");
+			tracker = ft_strsearch(tracker, ".123456789*");
+		}
+		else if (*tracker == '*')
+		{
+			(*conv).width = va_arg(ap, int);
+			tracker++;
+			tracker = ft_strsearch(tracker, ".123456789*");
+		}
+		else
+			break ;
+	}
 }
 
-bool	printf_copy_conv(const char *format, t_params *conv, int *i)
+void		printf_get_flags(t_params *conv, va_list ap)
+{
+	char	*ptr;
+	char	*sub_format;
+
+	sub_format = (*conv).string;
+	if (ft_strchr(sub_format, '.'))
+		(*conv).flag_precision = true;
+	if (ft_strchr(sub_format, '-'))
+		(*conv).flag_minus = true;
+	ptr = ft_strchr(sub_format, '0');
+	while (ptr)
+	{
+		if (ptr == sub_format || (*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
+			(*conv).flag_zero = true;
+		ptr++;
+		ptr = ft_strchr(ptr, '0');
+	}
+	get_width_precision(conv, ap);
+		if ((*conv).width < 0)
+	{
+		(*conv).width *= -1;
+		(*conv).flag_minus = true;
+	}
+}
+
+bool		printf_copy_conv(const char *format, t_params *conv, int *i)
 {
 	const char	*start;
 	const char	*end;
@@ -91,14 +96,15 @@ bool	printf_copy_conv(const char *format, t_params *conv, int *i)
 	start = &format[*i];
 	if ((end = ft_strsearch(start, PRINTF_SPECS)))
 	{
-		if (end - start + 1 < SUB_FORMAT_LEN)
+		if (end - start + 1 < SUB_FORMAT_LEN) // keep format len?
 		{
 			if (end == ft_strignore(start, PRINTF_VALID))
 			{
-				ft_memccpy((*conv).sub_format, start, *end, SUB_FORMAT_LEN - 1);
-				(*conv).specifier = *end; // check conversions ^
+				(*conv).string = ft_substr(start, 0, end - start + 1);
+				(*conv).specifier = *end;
 				*i += end - start + 1;
-				return (true);
+				if ((*conv).string)
+					return (true);
 			}
 		}
 	}
