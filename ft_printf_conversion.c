@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 08:28:22 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 08:36:45 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,13 @@ void		printf_get_flags(t_params *conv, va_list ap)
 	if (ft_strchr((*conv).string, '-'))
 		(*conv).flag_minus = true;
 	ptr = ft_strchr((*conv).string, '0');
-	while (ptr)
+	while (ptr && !(*conv).flag_zero)
 	{
 		if (ptr == (*conv).string ||
 								(*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
 			(*conv).flag_zero = true;
-		ptr = ft_strchr(++ptr, '0');
+		ptr++;
+		ptr = ft_strchr(ptr, '0');
 	}
 	get_width_precision(conv, ap);
 }
