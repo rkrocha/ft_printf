@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 15:12:53 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:08:06 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct	s_params
 	bool	flag_minus;
 	bool	flag_zero;
 	bool	flag_precision;
-	int		width;
 	int		precision;
+	int		width;
 	int		len;
 }				t_params;
 
