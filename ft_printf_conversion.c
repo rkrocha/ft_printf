@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 16:10:02 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:19:33 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	get_width_precision(t_params *conv, va_list ap)
 	adjust_flags(conv);
 }
 
-void		printf_get_flags(t_params *conv, va_list ap)
+void	printf_get_flags(t_params *conv, va_list ap)
 {
 	char	*ptr;
 
@@ -88,8 +88,8 @@ void		printf_get_flags(t_params *conv, va_list ap)
 	ptr = ft_strchr((*conv).string, '0');
 	while (ptr && !(*conv).flag_zero)
 	{
-		if (ptr == (*conv).string ||
-								(*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
+		if (ptr == (*conv).string
+			|| (*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
 			(*conv).flag_zero = true;
 		ptr++;
 		ptr = ft_strchr(ptr, '0');
@@ -97,12 +97,13 @@ void		printf_get_flags(t_params *conv, va_list ap)
 	get_width_precision(conv, ap);
 }
 
-bool		printf_copy_conv(char **start, t_params *conv)
+bool	printf_copy_conv(char **start, t_params *conv)
 {
 	char	*end;
 
 	(*start)++;
-	if ((end = ft_strsearch(*start, PRINTF_SPECS)))
+	end = ft_strsearch(*start, PRINTF_SPECS);
+	if (end)
 	{
 		if (end == ft_strignore(*start, PRINTF_VALID))
 		{

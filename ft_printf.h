@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 16:08:06 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:22:38 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define PRINTF_VALID "-0.*123456789"
 # define PRINTF_FLAGS "-0.*"
 
-typedef struct	s_params
+typedef struct s_params
 {
 	char	*string;
 	char	specifier;

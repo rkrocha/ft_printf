@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:16:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 19:41:03 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:17:48 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	get_conversion(char **sub_format, int *nprint, va_list ap)
 	return ;
 }
 
-int			ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	char	*sub_format;
@@ -57,8 +57,11 @@ int			ft_printf(const char *format, ...)
 	va_start(ap, format);
 	nprint = 0;
 	printed = (char *)format;
-	while (nprint != -1 && (sub_format = ft_strchr(printed, '%')))
+	while (nprint != -1)
 	{
+		sub_format = ft_strchr(printed, '%');
+		if (!sub_format)
+			break ;
 		ft_putnstr(printed, sub_format - printed);
 		nprint += sub_format - printed;
 		get_conversion(&sub_format, &nprint, ap);

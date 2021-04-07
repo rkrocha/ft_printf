@@ -6,13 +6,13 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 14:58:33 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:28:54 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		printf_prep_int(t_params *conv, va_list ap, int *nprint)
+void	printf_prep_int(t_params *conv, va_list ap, int *nprint)
 {
 	long	num;
 	bool	sign;
@@ -32,14 +32,15 @@ void		printf_prep_int(t_params *conv, va_list ap, int *nprint)
 	if (num == 0)
 		is_zero = true;
 	(*conv).string = ft_ullitoa_base(num, DECIMAL_BASE, false);
-	if ((*conv).string && ((*conv).len = ft_strlen((*conv).string) + sign))
+	(*conv).len = ft_strlen((*conv).string) + sign;
+	if ((*conv).string && (*conv).len)
 		printf_print(*conv, nprint, is_zero, sign);
 	else
 		*nprint = -1;
 	ft_strdel(&(*conv).string);
 }
 
-void		printf_prep_hex(t_params *conv, va_list ap, int *nprint)
+void	printf_prep_hex(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned int	num;
 	bool			is_zero;
@@ -77,7 +78,8 @@ static char	*ptr_pad(t_params conv, char *temp)
 		pad = conv.width - len;
 	else
 		pad = 2;
-	if (!(str = (char *)malloc((pad + 1) * sizeof(char))))
+	str = (char *)malloc((pad + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
 	ft_memset(str, '0', pad);
 	str[1] = 'x';
@@ -85,7 +87,7 @@ static char	*ptr_pad(t_params conv, char *temp)
 	return (str);
 }
 
-void		printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
+void	printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 {
 	unsigned long	num;
 	char			*pad;
