@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 15:26:36 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/08/23 09:21:52 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ void	printf_prep_str(t_params *conv, va_list ap, int *nprint)
 	char	*temp;
 
 	temp = va_arg(ap, char *);
-	if (temp == NULL && (*conv).flag_precision)
-		(*conv).string = ft_substr("(null)", 0, (*conv).precision);
+	if (temp == NULL && conv->flag_precision)
+		conv->string = ft_substr("(null)", 0, conv->precision);
 	else if (temp == NULL)
-		(*conv).string = ft_strdup("(null)");
-	else if ((*conv).flag_precision)
-		(*conv).string = ft_substr(temp, 0, (*conv).precision);
+		conv->string = ft_strdup("(null)");
+	else if (conv->flag_precision)
+		conv->string = ft_substr(temp, 0, conv->precision);
 	else
-		(*conv).string = ft_strdup(temp);
+		conv->string = ft_strdup(temp);
 	(*conv).precision = 0;
-	if ((*conv).string)
+	if (conv->string)
 	{
-		(*conv).len = ft_strlen((*conv).string);
+		(*conv).len = ft_strlen(conv->string);
 		printf_print(*conv, nprint, false, false);
 	}
 	else
 		*nprint = -1;
-	ft_strdel(&(*conv).string);
+	ft_strdel(&conv->string);
 }

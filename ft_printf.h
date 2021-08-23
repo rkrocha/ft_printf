@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:18:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/04/07 14:22:38 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/08/23 09:13:36 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdarg.h>
 # include "libft.h"
 
-# define PRINTF_SPECS "cspdiuxX%"
-# define PRINTF_VALID "-0.*123456789"
-# define PRINTF_FLAGS "-0.*"
+# define PRINTF_SPECIFIERS	"cspdiuxX%"
+# define PRINTF_CONV_CHARS	"-0.*123456789"
+# define PRINTF_FLAGS		"-0.*"
 
 typedef struct s_params
 {

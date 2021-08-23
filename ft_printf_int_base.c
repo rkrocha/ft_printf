@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:53:26 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:54 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/08/23 09:23:00 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	printf_prep_int(t_params *conv, va_list ap, int *nprint)
 	bool	sign;
 	bool	is_zero;
 
-	if ((*conv).specifier == 'd' || (*conv).specifier == 'i')
+	if (conv->specifier == 'd' || conv->specifier == 'i')
 		num = (long)va_arg(ap, int);
 	else
 		num = (long)va_arg(ap, unsigned int);
@@ -31,13 +31,13 @@ void	printf_prep_int(t_params *conv, va_list ap, int *nprint)
 	is_zero = false;
 	if (num == 0)
 		is_zero = true;
-	(*conv).string = ft_ullitoa_base(num, DECIMAL_BASE, false);
-	(*conv).len = ft_strlen((*conv).string) + sign;
-	if ((*conv).string && (*conv).len)
+	conv->string = ft_ullitoa_base(num, DECIMAL_BASE, false);
+	conv->len = ft_strlen(conv->string) + sign;
+	if (conv->string && conv->len)
 		printf_print(*conv, nprint, is_zero, sign);
 	else
 		*nprint = -1;
-	ft_strdel(&(*conv).string);
+	ft_strdel(&conv->string);
 }
 
 void	printf_prep_hex(t_params *conv, va_list ap, int *nprint)
@@ -49,18 +49,18 @@ void	printf_prep_hex(t_params *conv, va_list ap, int *nprint)
 	is_zero = false;
 	if (num == 0)
 		is_zero = true;
-	if ((*conv).specifier == 'x')
-		(*conv).string = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
+	if (conv->specifier == 'x')
+		conv->string = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
 	else
-		(*conv).string = ft_ullitoa_base(num, UPPER_HEX_BASE, false);
-	if ((*conv).string)
+		conv->string = ft_ullitoa_base(num, UPPER_HEX_BASE, false);
+	if (conv->string)
 	{
-		(*conv).len = ft_strlen((*conv).string);
+		conv->len = ft_strlen(conv->string);
 		printf_print(*conv, nprint, is_zero, false);
 	}
 	else
 		*nprint = -1;
-	ft_strdel(&(*conv).string);
+	ft_strdel(&conv->string);
 }
 
 static char	*ptr_pad(t_params conv, char *temp)
@@ -95,22 +95,22 @@ void	printf_prep_ptr(t_params *conv, va_list ap, int *nprint)
 
 	num = va_arg(ap, unsigned long);
 	pad = NULL;
-	if (num == 0 && (*conv).flag_precision && (*conv).precision == 0)
-		(*conv).string = ft_strdup("0x");
+	if (num == 0 && conv->flag_precision && conv->precision == 0)
+		conv->string = ft_strdup("0x");
 	else
 	{
 		temp = ft_ullitoa_base(num, LOWER_HEX_BASE, false);
 		pad = ptr_pad(*conv, temp);
-		(*conv).string = ft_strjoin(pad, temp);
+		conv->string = ft_strjoin(pad, temp);
 		ft_strdel(&temp);
 		ft_strdel(&pad);
 	}
-	if ((*conv).string)
+	if (conv->string)
 	{
-		(*conv).len = ft_strlen((*conv).string);
+		conv->len = ft_strlen(conv->string);
 		printf_print(*conv, nprint, false, false);
 	}
 	else
 		*nprint = -1;
-	ft_strdel(&(*conv).string);
+	ft_strdel(&conv->string);
 }
