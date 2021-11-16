@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:02:12 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/08/23 09:18:25 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:11:49 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ static void	adjust_flags(t_params *conv)
 	if (conv->width < 0)
 	{
 		conv->width *= -1;
-		conv->flag_minus = true;
+		conv->flag_minus = TRUE;
 	}
 	if (conv->precision < 0)
 	{
 		conv->precision = 0;
-		conv->flag_precision = false;
+		conv->flag_precision = FALSE;
 	}
 	if (conv->flag_minus && conv->flag_zero)
-		conv->flag_zero = false;
+		conv->flag_zero = FALSE;
 	if (conv->flag_zero && conv->flag_precision && conv->precision >= 0)
 		if (!ft_strchr("cs%", conv->specifier))
-			conv->flag_zero = false;
+			conv->flag_zero = FALSE;
 }
 
 static char	*get_precision_value(t_params *conv, va_list ap, char *tracker)
@@ -82,22 +82,22 @@ void	printf_get_flags(t_params *conv, va_list ap)
 	char	*ptr;
 
 	if (ft_strchr(conv->string, '.'))
-		conv->flag_precision = true;
+		conv->flag_precision = TRUE;
 	if (ft_strchr(conv->string, '-'))
-		conv->flag_minus = true;
+		conv->flag_minus = TRUE;
 	ptr = ft_strchr(conv->string, '0');
 	while (ptr && !conv->flag_zero)
 	{
 		if (ptr == conv->string
 			|| (*(ptr - 1) != '.' && !ft_isdigit(*(ptr - 1))))
-			conv->flag_zero = true;
+			conv->flag_zero = TRUE;
 		ptr++;
 		ptr = ft_strchr(ptr, '0');
 	}
 	get_width_precision(conv, ap);
 }
 
-bool	printf_copy_conv(char **start, t_params *conv)
+t_bool	printf_copy_conv(char **start, t_params *conv)
 {
 	char	*end;
 
@@ -111,8 +111,8 @@ bool	printf_copy_conv(char **start, t_params *conv)
 			conv->specifier = *end;
 			*start = end + 1;
 			if (conv->string)
-				return (true);
+				return (TRUE);
 		}
 	}
-	return (false);
+	return (FALSE);
 }

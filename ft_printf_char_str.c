@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 14:10:44 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/08/23 09:21:52 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:11:31 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	printf_prep_str(t_params *conv, va_list ap, int *nprint)
 	if (conv->string)
 	{
 		(*conv).len = ft_strlen(conv->string);
-		printf_print(*conv, nprint, false, false);
+		printf_print(*conv, nprint, FALSE, FALSE);
 	}
 	else
 		*nprint = -1;

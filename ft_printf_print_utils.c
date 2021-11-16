@@ -6,7 +6,7 @@
 /*   By: rkochhan <rkochhan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:29:04 by rkochhan          #+#    #+#             */
-/*   Updated: 2021/03/17 15:27:54 by rkochhan         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:10:54 by rkochhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 **		can be prepared before being sent to this function.
 */
 
-void	printf_print(t_params conv, int *nprint, bool zero, bool sign)
+void	printf_print(t_params conv, int *nprint, t_bool zero, t_bool sign)
 {
 	if (!conv.flag_minus)
 	{
