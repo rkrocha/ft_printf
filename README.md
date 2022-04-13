@@ -1,8 +1,6 @@
 <br/>
 <p align="center">
-  <a href="https://github.com/rkrocha/42cursus/blob/master/subjects/01.ft_printf.pdf">
-    <img src="https://github.com/rkrocha/42cursus/blob/master/badges/ft_printfe.png" alt="Logo" width="150" height="150">
-  </a>
+    <img src="https://github.com/rkrocha/42cursus/blob/main/badges/ft_printfe.png" alt="Logo" width="150" height="150">
 
   <h3 align="center">ft_printf</h3>
 
@@ -18,8 +16,6 @@
 ## About The Project
 
 This project is pretty straight forward: it's about recoding printf. It mainly teaches how to use variadic arguments in C.
-
-For more information check out this project's [PDF](https://github.com/rkrocha/42cursus/blob/master/subjects/01.ft_printf.pdf).
 
 ## Built With
 
